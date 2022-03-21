@@ -214,19 +214,32 @@ function solution() {
         days(4)
 }
 
+// --------------------------------- 2주차 알고리즘 ---------------------------------
 
 
-
-
-function solution() {
-
+// 2-1 같은 숫자는 싫어
+function solution(arr)
+{
+    const answer = []
+    
+    for(let i = 0; i < arr.length; i++){
+        if(answer[answer.length -1] !== arr[i]){
+            answer.push(arr[i])
+        }
+    }
+    return answer
 }
 
-function solution() {
-
+// 2-2 핸드폰 번호 가리기
+function solution(phone_number) {
+    let answer = '';
+    //4자리를 제외한 앞자리 *
+    answer = answer.padStart(phone_number.length-4, "*")
+    //앞자리 *을 제외한 나머지 4자리
+    let b = phone_number.slice(phone_number.length -4, phone_number.length)
+    //그리고 그 두개를 합치기
+    answer = answer.concat(b)
+    return answer
 }
 
-function solution() {
-
-}
 
