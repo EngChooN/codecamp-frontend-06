@@ -215,7 +215,7 @@ function solution() {
 }
 
 // --------------------------------- 2주차 알고리즘 ---------------------------------
-
+// 2-1: 2주차 1일차 문제
 
 // 2-1 같은 숫자는 싫어
 function solution(arr)
@@ -230,7 +230,7 @@ function solution(arr)
     return answer
 }
 
-// 2-2 핸드폰 번호 가리기
+// 2-1 핸드폰 번호 가리기
 function solution(phone_number) {
     let answer = '';
     //4자리를 제외한 앞자리 *
@@ -242,4 +242,26 @@ function solution(phone_number) {
     return answer
 }
 
+// 2-2 평균구하기
+function solution(arr) {
+    let answer = 0;
+    for(i = 0; i < arr.length; i++){
+        answer = answer + Number(arr[i])
+        console.log(answer)
+    }
+    answer = answer / arr.length
+    return answer;
+}
 
+// 2-2 가운데 글자 가져오기
+function solution(s) {
+    let answer;
+    const center = Math.floor(s.length / 2)
+    
+    if(s.length % 2 === 0){
+        answer = s.slice(center - 1, center + 1)
+    }else{
+        answer = s[center]
+    }
+    return answer
+}
