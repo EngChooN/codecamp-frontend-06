@@ -1,5 +1,6 @@
 import { useQuery, gql, useMutation } from '@apollo/client'
 import styled from '@emotion/styled'
+import { useRouter } from 'next/router'
 
 const FETCH_BOARDS = gql`
     query fetchBoards{
@@ -84,7 +85,12 @@ const BoardsColumn_P = styled.div`
 `
 
 export default function BoardListPage() {
-    const {data} = useQuery(FETCH_BOARDS)
+    const { data } = useQuery(FETCH_BOARDS)
+    const router = useRouter();
+
+    const onClickMoveBoardDetail = (event) => {
+        router.push("/boards/" + event.target.id)
+    }
 
     return (
         <Warapper>
@@ -94,15 +100,24 @@ export default function BoardListPage() {
                 <BoardsColumn_P>작성자</BoardsColumn_P>
                 <BoardsColumn_P>날짜</BoardsColumn_P>
             </BoardsRow_P>
-            {data?.fetchBoards.map((el) => (
-                <BoardsRow>
-                    <BoardsColumn>0</BoardsColumn>
-                    {/* 번호를 어떻게 줘야하는지 모르겠습니다 */}
-                    <BoardsColumn>{el.title}</BoardsColumn>
-                    <BoardsColumn>{el.writer}</BoardsColumn>
-                    <BoardsColumn>{el.createdAt}</BoardsColumn>
-                </BoardsRow>
-            ))}
+            {data?.fetchBoards.map((el, index) => {
+                const aaa = new Date(el.createdAt)
+                const year = aaa.getFullYear()
+                const month = String(aaa.getMonth() + 1).padStart(2,"0")
+                const date = aaa.getDate()
+                const result = `${year} - ${month} - ${date}`
+
+                return (
+                    <BoardsRow>
+                        <BoardsColumn>{index + 1}</BoardsColumn>
+                        {/* 번호를 어떻게 줘야하는지 모르겠습니다 */}
+                        <BoardsColumn id={el._id} onClick={onClickMoveBoardDetail}>{el.title}</BoardsColumn>
+                        <BoardsColumn>{el.writer}</BoardsColumn>
+                        <BoardsColumn>{result}</BoardsColumn>
+                    </BoardsRow>
+                )
+            }
+            )}
         </Warapper>
     )
 }
