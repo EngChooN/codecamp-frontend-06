@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARDS } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 
 export default function BoardWrite(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD)
+  const [updateBoard] = useMutation(UPDATE_BOARD);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -77,28 +77,26 @@ export default function BoardWrite(props) {
   };
 
   const onClickEdit = async () => {
-    // const myVariables = { boardId: router.query.boardId }
-    // if (password !== "") myVariables.password = password
-    // if (title !== "") myVariables.updateBoardInput.title = title
-    // if (contents !== "") myVariables.updateBoardInput.contents = contents
+    const myVariables = {
+      //updateBoardInput을 선언을 안해줘서 안됐었음!! (플레이그라운드 맨 위에 있는건 다 들어가야함!!)
+      updateBoardInput: {},
+      boardId: router.query.boardId,
+      password: password,
+    };
 
+    if (title !== "") myVariables.updateBoardInput.title = title;
+    if (contents !== "") myVariables.updateBoardInput.contents = contents;
+    //writer는 어차피 안바껴서 선언 x, (플레이그라운드 보면 필수가 아님!!)
     try {
       await updateBoard({
-        variables: {
-          boardId: router.query.boardId,
-          password: password,
-          updateBoardInput: {
-            title: title,
-            contents: contents
-          }
-        }
-      })
-      alert("수정완료!")
-      router.push("/boards/" + router.query.boardId)
+        variables: myVariables,
+      });
+      alert("수정완료!");
+      router.push("/boards/" + router.query.boardId);
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-  }
+  };
 
   const onClickSubmit = async () => {
     if (writer === "") {
@@ -133,12 +131,6 @@ export default function BoardWrite(props) {
       }
     }
   };
-
-  // const { data } = useQuery(FETCH_BOARDS, {
-  //     variables: {
-  //         boardId: router.query.boardId
-  //     }
-  // })
 
   return (
     <BoardWriteUI
