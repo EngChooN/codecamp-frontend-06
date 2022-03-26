@@ -4,8 +4,9 @@ export const Wrapper = styled.div`
   width: 1200px;
   /* height: 1847px; */
   border: 1px solid black;
-  margin: 100px;
-  padding-top: 80px;
+  margin: auto;
+  margin-top: 100px;
+  padding-top: 100px;
   padding-bottom: 100px;
   padding-left: 102px;
   padding-right: 102px;
