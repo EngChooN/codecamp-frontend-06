@@ -23,7 +23,9 @@ export const CommentWriteHeaderTitle = styled.div`
   line-height: 27px;
 `;
 
-export const CommentWriteRating = styled.input``;
+export const CommentWriteRating = styled.div`
+  margin-bottom: 10px;
+`;
 
 export const CommentWriteInfo = styled.div`
   width: 100%;
@@ -53,7 +55,7 @@ export const CommentWriteWriterWriter = styled.input`
 
 export const CommentWriteWriterBtn = styled.button`
   width: 7%;
-  background-color: black;
+  background-color: ${(props) => (props.isActive ? "black" : "none")};
   color: white;
   border: none;
 `;
@@ -64,5 +66,5 @@ export const CommentWritePassword = styled.input`
   border-left: 1px solid #bdbdbd;
   border-right: 1px solid #bdbdbd;
   border-bottom: 1px solid #bdbdbd;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;

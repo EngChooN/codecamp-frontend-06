@@ -4,7 +4,28 @@ import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 
-export default function BoardWrite(props) {
+// 인터페이스
+import { ChangeEvent } from "react";
+interface IBoardWriteProps {
+  isEdit: boolean;
+  data?: any;
+  // onChangeWriter: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  // onChangePassword: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  // onChangeTitle: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  // onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+interface IMyVariables {
+  updateBoardInput: {
+    title?: string;
+    contents?: string;
+  };
+  boardId?: string;
+  password: string;
+}
+//
+
+export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [createBoard] = useMutation(CREATE_BOARD);
@@ -14,13 +35,14 @@ export default function BoardWrite(props) {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [youtube, setYoutube] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
-  const onChangeWriter = (event) => {
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
     if (event.target.value !== "") {
       setWriterError("");
@@ -34,7 +56,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangePassword = (event) => {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (event.target.value !== "") {
       setPasswordError("");
@@ -48,7 +70,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeTitle = (event) => {
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
     if (event.target.value !== "") {
       setTitleError("");
@@ -62,7 +84,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLInputElement>) => {
     setContents(event.target.value);
     if (event.target.value !== "") {
       setContentsError("");
@@ -77,10 +99,10 @@ export default function BoardWrite(props) {
   };
 
   const onClickEdit = async () => {
-    const myVariables = {
+    const myVariables: IMyVariables = {
       //updateBoardInput을 선언을 안해줘서 안됐었음!! (플레이그라운드 맨 위에 있는건 다 들어가야함!!)
       updateBoardInput: {},
-      boardId: router.query.boardId,
+      boardId: String(router.query.boardId),
       password: password,
     };
 
@@ -120,6 +142,7 @@ export default function BoardWrite(props) {
               password: password,
               title: title,
               contents: contents,
+              youtubeUrl: youtube,
             },
           },
         });
@@ -130,6 +153,11 @@ export default function BoardWrite(props) {
         console.log(error.message);
       }
     }
+  };
+
+  const onChangeYoutube = (event) => {
+    console.log(event.target.value);
+    setYoutube(event.target.value);
   };
 
   return (
@@ -147,6 +175,7 @@ export default function BoardWrite(props) {
       onClickEdit={onClickEdit}
       isEdit={props.isEdit}
       data={props.data}
+      onChangeYoutube={onChangeYoutube}
     />
   );
 }

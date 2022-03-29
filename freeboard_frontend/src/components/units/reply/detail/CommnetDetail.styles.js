@@ -38,9 +38,12 @@ export const CommentInfoHeaderRating = styled.div``;
 
 export const CommentInfoHeaderEdit = styled.img`
   margin-right: 15px;
+  cursor: pointer;
 `;
 
-export const CommentInfoHeaderDelete = styled.img``;
+export const CommentInfoHeaderDelete = styled.img`
+  cursor: pointer;
+`;
 
 export const CommentInfoContents = styled.div`
   font-weight: 400;

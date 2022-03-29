@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+interface IBoardWriteStylesProps {
+  isActive: boolean;
+}
+
 export const Wrapper = styled.div`
   width: 1200px;
   /* height: 1847px; */
@@ -166,7 +170,8 @@ export const SubmitButton = styled.button`
   margin-right: 12px;
   cursor: pointer;
 
-  background-color: ${(props) => (props.isActive ? "yellow" : "none")};
+  background-color: ${(props: IBoardWriteStylesProps) =>
+    props.isActive ? "yellow" : "none"};
 `;
 
 export const Error = styled.div`

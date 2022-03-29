@@ -1,32 +1,52 @@
 import {
-    Wrapper,
-    Title,
-    WriterWrapper,
-    Writer,
-    Password,
-    Label,
-    InputWrapper,
-    Subject,
-    Contents,
-    ZipcodeWrapper,
-    Zipcode,
-    SearchButton,
-    Address,
-    Youtube,
-    ImageWrapper,
-    UploadButton,
-    OptionWrapper,
-    RadioButton,
-    RadioLabel,
-    ButtonWrapper,
-    SubmitButton,
-    Error
-} from './BoardWrite.styles'
+  Wrapper,
+  Title,
+  WriterWrapper,
+  Writer,
+  Password,
+  Label,
+  InputWrapper,
+  Subject,
+  Contents,
+  ZipcodeWrapper,
+  Zipcode,
+  SearchButton,
+  Address,
+  Youtube,
+  ImageWrapper,
+  UploadButton,
+  OptionWrapper,
+  RadioButton,
+  RadioLabel,
+  ButtonWrapper,
+  SubmitButton,
+  Error,
+} from "./BoardWrite.styles";
 
-export default function BoardWriteUI(props) {
+// 인터페이스
+import { ChangeEvent } from "react";
+interface IBoardWriteUIProps {
+  isActive: boolean;
+  writerError: string;
+  passwordError: string;
+  titleError: string;
+  contentsError: string;
+  onChangeWriter: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangePassword: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeTitle: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeYoutube: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onClickSubmit: () => void;
+  onClickEdit: () => void;
+  isEdit: boolean;
+  data?: any;
+}
+//
+
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <Wrapper>
-      <Title>게시판{props.isEdit? "수정" : "등록"}</Title>
+      <Title>게시판{props.isEdit ? "수정" : "등록"}</Title>
       <WriterWrapper>
         <InputWrapper>
           <Label>작성자</Label>
@@ -78,7 +98,10 @@ export default function BoardWriteUI(props) {
       </InputWrapper>
       <InputWrapper>
         <Label>유튜브</Label>
-        <Youtube placeholder="링크를 복사해주세요." />
+        <Youtube
+          onChange={props.onChangeYoutube}
+          placeholder="링크를 복사해주세요."
+        />
       </InputWrapper>
       <ImageWrapper>
         <Label>사진첨부</Label>
@@ -94,8 +117,11 @@ export default function BoardWriteUI(props) {
         <RadioLabel htmlFor="image">사진</RadioLabel>
       </OptionWrapper>
       <ButtonWrapper>
-        <SubmitButton onClick={props.isEdit? props.onClickEdit : props.onClickSubmit} isActive={props.isActive}>
-          {props.isEdit? "수정" : "등록"}하기
+        <SubmitButton
+          onClick={props.isEdit ? props.onClickEdit : props.onClickSubmit}
+          isActive={props.isActive}
+        >
+          {props.isEdit ? "수정" : "등록"}하기
         </SubmitButton>
       </ButtonWrapper>
     </Wrapper>

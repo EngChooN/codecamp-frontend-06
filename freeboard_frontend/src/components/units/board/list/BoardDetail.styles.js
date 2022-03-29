@@ -100,9 +100,8 @@ export const Ect = styled.div`
 `;
 
 export const Ect_ect = styled.div`
-  width: 486px;
-  height: 240px;
-  background-color: gray;
+  /* width: 486px;
+  height: 240px; */
   margin-top: 120px;
 `;
 
@@ -128,7 +127,9 @@ export const Dislike = styled.div`
   justify-content: center;
 `;
 
-export const Like_icon = styled.img``;
+export const Like_icon = styled.img`
+  cursor: pointer;
+`;
 export const Like_span = styled.div`
   font-weight: 400;
   font-size: 18px;
@@ -137,7 +138,9 @@ export const Like_span = styled.div`
   /* Main */
   color: #ffd600;
 `;
-export const Dislike_icon = styled.img``;
+export const Dislike_icon = styled.img`
+  cursor: pointer;
+`;
 export const Dislike_span = styled.div`
   font-weight: 400;
   font-size: 18px;

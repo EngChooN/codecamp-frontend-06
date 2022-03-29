@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_BOARD_COMMENT } from "./CommentWrite.queries";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { FETCH_COMMENTS } from "../detail/CommnetDetail.queries";
+import { FETCH_COMMENTS } from "../detail/CommentDetail.queries";
 
 export default function CommentWrite(props) {
   const router = useRouter();
@@ -12,10 +12,14 @@ export default function CommentWrite(props) {
   const [commentWriter, setCommentWriter] = useState("");
   const [commentContents, setCommentContents] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
-  const [commentRating, setCommentRating] = useState("");
+  // const [commentRating, setCommentRating] = useState("");
+  //별점
+  const [rating, setRating] = useState(0);
+  const handleChange = (rating) => {
+    setRating(rating);
+  };
 
   const onChangeCommentWriter = (event) => {
-    console.log(event.target.value);
     setCommentWriter(event.target.value);
     if (
       event.target.value !== "" &&
@@ -60,13 +64,13 @@ export default function CommentWrite(props) {
 
   const onClickCommentCreate = async () => {
     try {
-      await createBoardComment({
+      const result = await createBoardComment({
         variables: {
           createBoardCommentInput: {
             writer: commentWriter,
             password: commentPassword,
             contents: commentContents,
-            rating: Number(commentRating),
+            rating: rating,
           },
           boardId: router.query.boardId,
         },
@@ -79,6 +83,11 @@ export default function CommentWrite(props) {
           },
         ],
       });
+      // 댓글작성 후, 작성내용을 지워주기 위하여, state를 등록 후 빈값으로 세팅한다.
+      setCommentContents("");
+      setCommentPassword("");
+      setCommentWriter("");
+      setRating(0);
       alert("댓글등록에 성공하였습니다!");
     } catch (error) {
       alert(error.message);
@@ -92,6 +101,12 @@ export default function CommentWrite(props) {
       onChangeCommentPassword={onChangeCommentPassword}
       onClickCommentCreate={onClickCommentCreate}
       onChangeCommentRating={onChangeCommentRating}
+      // 댓글작성 후, 작성내용을 지워주기 위하여, 아래의 props값을 value로 사용한다.
+      commentContents={commentContents}
+      commentPassword={commentPassword}
+      commentWriter={commentWriter}
+      handleChange={handleChange}
+      rating={rating}
     />
   );
 }

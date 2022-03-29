@@ -1,6 +1,5 @@
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
-import { route } from "next/dist/server/router";
 import { useRouter } from "next/router";
 
 const FETCH_BOARDS = gql`
@@ -94,11 +93,18 @@ const BoardWriteBtn = styled.button`
   cursor: pointer;
 `;
 
+//인터페이스--------------------------------------------------------------------------
+import { MouseEvent } from "react";
+interface IBoardList {
+  onClickMoveBoardDetail: (event: MouseEvent<HTMLDivElement>) => void;
+}
+// -----------------------------------------------------------------------------------
+
 export default function BoardListPage() {
   const { data } = useQuery(FETCH_BOARDS);
   const router = useRouter();
 
-  const onClickMoveBoardDetail = (event) => {
+  const onClickMoveBoardDetail = (event: MouseEvent<HTMLDivElement>) => {
     router.push("/boards/" + event.target.id);
   };
 

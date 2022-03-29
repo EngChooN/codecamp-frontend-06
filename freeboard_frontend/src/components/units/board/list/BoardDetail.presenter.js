@@ -26,8 +26,14 @@ import {
   Footer_btn,
   Writer_icon2,
 } from "./BoardDetail.styles";
+import ReactPlayer from "react-player";
 
 export default function BoardDetailUI(props) {
+  const aaa = new Date(props.data?.fetchBoard.createdAt);
+  const year = aaa.getFullYear();
+  const month = String(aaa.getMonth() + 1).padStart(2, "0");
+  const date = aaa.getDate();
+  const result = `${year} - ${month} - ${date}`;
   return (
     <>
       <Waraper>
@@ -36,9 +42,7 @@ export default function BoardDetailUI(props) {
             <Writer_img src="/images/Profile.png" />
             <Writer_info>
               <Writer_name>{props.data?.fetchBoard.writer}</Writer_name>
-              <Writer_createdAt>
-                Date:{props.data?.fetchBoard.createdAt}
-              </Writer_createdAt>
+              <Writer_createdAt>Date: {result}</Writer_createdAt>
             </Writer_info>
           </Writer_left>
           <Writer_right>
@@ -56,15 +60,20 @@ export default function BoardDetailUI(props) {
           </Contents_main>
         </Contents_box>
         <Ect>
-          <Ect_ect></Ect_ect>
+          <Ect_ect>
+            <ReactPlayer url={props.data?.fetchBoard.youtubeUrl} />
+          </Ect_ect>
         </Ect>
         <Like_waraper>
           <Like>
-            <Like_icon src="/images/Like.png" />
+            <Like_icon src="/images/Like.png" onClick={props.onClickLike} />
             <Like_span>{props.data?.fetchBoard.likeCount}</Like_span>
           </Like>
           <Dislike>
-            <Dislike_icon src="/images/Dislike.png" />
+            <Dislike_icon
+              src="/images/Dislike.png"
+              onClick={props.onClickDislike}
+            />
             <Dislike_span>{props.data?.fetchBoard.dislikeCount}</Dislike_span>
           </Dislike>
         </Like_waraper>
