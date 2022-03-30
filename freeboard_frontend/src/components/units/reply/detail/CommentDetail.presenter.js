@@ -13,6 +13,7 @@ import {
   CommentCreatedAt,
 } from "./CommnetDetail.styles";
 import { Rate } from "antd";
+import { Modal, Button } from "antd";
 
 export default function CommentDetailUI(props) {
   return (
@@ -44,12 +45,31 @@ export default function CommentDetailUI(props) {
                   </CommentInfoHeaderRating>
                 </CommentInfoHeaderWriterUser>
                 <CommentInfoHeaderBtn>
-                  <CommentInfoHeaderEdit src="/images/Edit.png" />
-                  <CommentInfoHeaderDelete
-                    onClick={props.onClickDeleteComment}
-                    src="/images/Delete.png"
-                    id={el._id}
+                  <CommentInfoHeaderEdit
+                    src="/images/Edit.png"
+                    onClick={props.onClickEditComment}
                   />
+                  <CommentInfoHeaderDelete
+                    onClick={props.showModal}
+                    src="/images/Delete.png"
+                    // id={el._id}
+                  />
+                  {/* 비밀번호 모달창 */}
+                  {props.isModalVisible && (
+                    <Modal
+                      title="비밀번호를 입력해 주세요"
+                      visible={props.isModalVisible}
+                      onOk={props.handleOk}
+                      onCancel={props.handleCancel}
+                    >
+                      <input
+                        type="password"
+                        onChange={props.onChangePassword}
+                        id={el._id}
+                      />
+                    </Modal>
+                  )}
+                  {/* ----------------------------- */}
                 </CommentInfoHeaderBtn>
               </CommentInfoHeader>
               <CommentInfoContents>{el.contents}</CommentInfoContents>

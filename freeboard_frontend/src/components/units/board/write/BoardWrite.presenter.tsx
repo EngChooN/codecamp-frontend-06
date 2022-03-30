@@ -22,6 +22,8 @@ import {
   SubmitButton,
   Error,
 } from "./BoardWrite.styles";
+import DaumPostcode from "react-daum-postcode";
+import { Modal, Button } from "antd";
 
 // 인터페이스
 import { ChangeEvent } from "react";
@@ -31,13 +33,14 @@ interface IBoardWriteUIProps {
   passwordError: string;
   titleError: string;
   contentsError: string;
-  onChangeWriter: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangePassword: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeTitle: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeYoutube: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeYoutube: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: () => void;
   onClickEdit: () => void;
+
   isEdit: boolean;
   data?: any;
 }
@@ -83,7 +86,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <Contents
           placeholder="내용을 작성해주세요."
           onChange={props.onChangeContents}
-          defaultValue={props.data?.fetchBoard.writer}
+          defaultValue={props.data?.fetchBoard.contents}
         />
         <Error>{props.contentsError}</Error>
       </InputWrapper>
@@ -91,8 +94,19 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <Label>주소</Label>
         <ZipcodeWrapper>
           <Zipcode placeholder="07250" />
-          <SearchButton>우편번호 검색</SearchButton>
+          <SearchButton onClick={props.onClickZip}>우편번호 검색</SearchButton>
         </ZipcodeWrapper>
+        {/* ---------------모달-------------------- */}
+        {props.isModalVisible && (
+          <Modal
+            title="게시글 등록"
+            visible={props.isModalVisible}
+            onCancel={props.handleCancel}
+          >
+            <DaumPostcode onComplete={props.handleComplete} />
+          </Modal>
+        )}
+        {/* --------------------------------------- */}
         <Address />
         <Address />
       </InputWrapper>
@@ -101,6 +115,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <Youtube
           onChange={props.onChangeYoutube}
           placeholder="링크를 복사해주세요."
+          defaultValue={props.data?.fetchBoard.youtubeUrl}
         />
       </InputWrapper>
       <ImageWrapper>

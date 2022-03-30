@@ -42,6 +42,23 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
+  // 모달 다음주소 등록
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [address, setAddress] = useState("");
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleComplete = (data: any) => {
+    setAddress(data.address);
+    setIsModalVisible(false);
+    console.log(address);
+  };
+
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
     if (event.target.value !== "") {
@@ -84,7 +101,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
-  const onChangeContents = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
     if (event.target.value !== "") {
       setContentsError("");
@@ -155,9 +172,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
-  const onChangeYoutube = (event) => {
+  const onChangeYoutube = (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
     setYoutube(event.target.value);
+  };
+
+  const onClickZip = () => {
+    showModal();
   };
 
   return (
@@ -176,6 +197,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
       isEdit={props.isEdit}
       data={props.data}
       onChangeYoutube={onChangeYoutube}
+      // 모달
+      handleCancel={handleCancel}
+      handleComplete={handleComplete}
+      isModalVisible={isModalVisible}
+      onClickZip={onClickZip}
     />
   );
 }
