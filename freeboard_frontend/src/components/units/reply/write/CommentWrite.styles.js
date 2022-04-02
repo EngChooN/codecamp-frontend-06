@@ -13,6 +13,11 @@ export const CommentWriteHeader = styled.div`
   margin-bottom: 50px;
 `;
 
+export const CommentPasswordRatingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const CommentWriteHeaderIcon = styled.img`
   margin-right: 20px;
 `;
@@ -25,6 +30,7 @@ export const CommentWriteHeaderTitle = styled.div`
 
 export const CommentWriteRating = styled.div`
   margin-bottom: 10px;
+  margin-left: 15px;
 `;
 
 export const CommentWriteInfo = styled.div`

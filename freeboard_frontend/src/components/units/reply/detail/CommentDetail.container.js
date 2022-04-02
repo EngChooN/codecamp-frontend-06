@@ -7,10 +7,12 @@ import {
 } from "./CommentDetail.queries";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Modal } from "antd";
 
 export default function CommentDetail(props) {
-  const isCommentEdit = false;
-  const [updateBoardComment] = useMutation(UPDATE_COMMENT);
+  const [isCommentEdit, setIsCommentEdit] = useState(false); // 이 값이 true면 해당 폼이 인풋으로 바뀜
+  const [editCommentId, setEditCommentId] = useState(""); // 수정할 댓글 아이디 값
+  // const [updateBoardComment] = useMutation(UPDATE_COMMENT);
 
   const isEdit = false;
   const [deleteBoardComment] = useMutation(DELETE_COMMENTS);
@@ -76,20 +78,23 @@ export default function CommentDetail(props) {
     }
   };
 
-  const onClickEditComment = async () => {
-    await updateBoardComment({
-      variables: {
-        updateBoardCommentInput: {
-          contents: contents,
-          rating: rating,
-        },
-        password: password,
-        boardCommentId: boardCommentId,
-      },
-    });
-    Modal.success({
-      content: "(수정아직 없음 ㅜ..)",
-    });
+  const onClickEditComment = (event) => {
+    console.log(event.target.id);
+    setIsCommentEdit(true);
+    setEditCommentId(event.target.id);
+    // await updateBoardComment({
+    //   variables: {
+    //     updateBoardCommentInput: {
+    //       contents: contents,
+    //       rating: rating,
+    //     },
+    //     password: password,
+    //     boardCommentId: boardCommentId,
+    //   },
+    // });
+    // Modal.success({
+    //   content: "(수정아직 없음 ㅜ..)",
+    // });
   };
 
   return (
@@ -105,6 +110,7 @@ export default function CommentDetail(props) {
       handleCancel={handleCancel}
       onChangePassword={onChangePassword}
       isCommentEdit={isCommentEdit}
+      editCommentId={editCommentId}
     />
   );
 }

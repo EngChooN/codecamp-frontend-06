@@ -49,9 +49,9 @@ export default function BoardDetail() {
   // 팝오버
   const popover = (
     <div>
-      <p>{data?.fetchBoard.boardAddress.zipcode}</p>
-      <p>{data?.fetchBoard.boardAddress.address}</p>
-      <p>{data?.fetchBoard.boardAddress.addressDetail}</p>
+      <p>{data?.fetchBoard?.boardAddress?.zipcode}</p>
+      <p>{data?.fetchBoard?.boardAddress?.address}</p>
+      <p>{data?.fetchBoard?.boardAddress?.addressDetail}</p>
     </div>
   );
 

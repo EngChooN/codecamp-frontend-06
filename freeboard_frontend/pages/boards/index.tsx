@@ -147,7 +147,7 @@ export default function BoardListPage() {
         const result = `${year} - ${month} - ${date}`;
 
         return (
-          <BoardsRow>
+          <BoardsRow key={el._id}>
             <BoardsColumn>
               {dataBoardsCount.fetchBoardsCount -
                 index * Number(selectPageNumber) -
