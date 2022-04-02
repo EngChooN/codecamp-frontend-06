@@ -3,13 +3,19 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
 const FETCH_BOARDS = gql`
-  query fetchBoards {
-    fetchBoards {
+  query fetchBoards($page: Int) {
+    fetchBoards(page: $page) {
       _id
       writer
       title
       createdAt
     }
+  }
+`;
+
+const FETCH_BOARDS_COUNT = gql`
+  query fetchBoardsCount {
+    fetchBoardsCount
   }
 `;
 
@@ -21,6 +27,7 @@ const Warapper = styled.div`
   width: 1200px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+  padding-bottom: 15px;
 `;
 
 const BoardsRow = styled.div`
@@ -94,14 +101,25 @@ const BoardWriteBtn = styled.button`
 `;
 
 //인터페이스--------------------------------------------------------------------------
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
+import Pagination from "../../src/components/commons/pagination/01/pagination";
 interface IBoardList {
   onClickMoveBoardDetail: (event: MouseEvent<HTMLDivElement>) => void;
 }
 // -----------------------------------------------------------------------------------
 
 export default function BoardListPage() {
-  const { data } = useQuery(FETCH_BOARDS);
+  //페이지네이션
+  const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
+  const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
+  // 게시글번호
+  const [selectPageNumber, setSelectPageNumber] = useState(0);
+  const onClickPageId = (a) => {
+    console.log(a);
+    setSelectPageNumber(Number(a));
+  };
+
+  const { data, refetch } = useQuery(FETCH_BOARDS);
   const router = useRouter();
 
   const onClickMoveBoardDetail = (event: MouseEvent<HTMLDivElement>) => {
@@ -125,12 +143,16 @@ export default function BoardListPage() {
         const aaa = new Date(el.createdAt);
         const year = aaa.getFullYear();
         const month = String(aaa.getMonth() + 1).padStart(2, "0");
-        const date = aaa.getDate();
+        const date = String(aaa.getDate()).padStart(2, "0");
         const result = `${year} - ${month} - ${date}`;
 
         return (
           <BoardsRow>
-            <BoardsColumn>{index + 1}</BoardsColumn>
+            <BoardsColumn>
+              {dataBoardsCount.fetchBoardsCount -
+                index * Number(selectPageNumber) -
+                index}
+            </BoardsColumn>
             <BoardsColumn id={el._id} onClick={onClickMoveBoardDetail}>
               {el.title}
             </BoardsColumn>
@@ -139,6 +161,13 @@ export default function BoardListPage() {
           </BoardsRow>
         );
       })}
+      <Pagination
+        data={data}
+        refetch={refetch}
+        dataBoardsCount={dataBoardsCount}
+        lastPage={lastPage}
+        onClickPageId={onClickPageId}
+      />
     </Warapper>
   );
 }

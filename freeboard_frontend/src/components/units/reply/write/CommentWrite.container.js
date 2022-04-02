@@ -4,6 +4,7 @@ import { CREATE_BOARD_COMMENT } from "./CommentWrite.queries";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { FETCH_COMMENTS } from "../detail/CommentDetail.queries";
+import { Modal } from "antd";
 
 export default function CommentWrite(props) {
   const router = useRouter();
@@ -88,9 +89,13 @@ export default function CommentWrite(props) {
       setCommentPassword("");
       setCommentWriter("");
       setRating(0);
-      alert("댓글등록에 성공하였습니다!");
+      Modal.success({
+        content: "(댓글등록 성공!)",
+      });
     } catch (error) {
-      alert(error.message);
+      Modal.error({
+        content: error,
+      });
     }
   };
   return (

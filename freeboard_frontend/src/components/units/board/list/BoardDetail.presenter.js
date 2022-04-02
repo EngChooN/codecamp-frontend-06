@@ -27,6 +27,7 @@ import {
   Writer_icon2,
 } from "./BoardDetail.styles";
 import ReactPlayer from "react-player";
+import { Popover } from "antd";
 
 export default function BoardDetailUI(props) {
   const aaa = new Date(props.data?.fetchBoard.createdAt);
@@ -47,7 +48,12 @@ export default function BoardDetailUI(props) {
           </Writer_left>
           <Writer_right>
             <Writer_icon src="/images/1.png" />
-            <Writer_icon2 src="/images/2.png" />
+            <Popover content={props.popover} title="주소">
+              <Writer_icon2 src="/images/2.png" />
+              {/* {props.data?.fetchBoard.boardAddress.address}/
+              {props.data?.fetchBoard.boardAddress.zipcode}/
+              {props.data?.fetchBoard.boardAddress.addressDetail} */}
+            </Popover>
           </Writer_right>
         </Header>
         <Contents_box>

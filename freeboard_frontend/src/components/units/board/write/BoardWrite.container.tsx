@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { Modal } from "antd";
 
 // 인터페이스
 import { ChangeEvent } from "react";
@@ -44,7 +45,15 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   // 모달 다음주소 등록
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(""); // 주소
+  const [zonecode, setZonecode] = useState(""); //우편번호
+  const [detailAddress, setDetailAddress] = useState(""); // 사용자가 입력한 상세주소
+
+  const onChangeDetailAddress = (event) => {
+    setDetailAddress(event.target.value);
+    console.log(event.target.value);
+  };
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -55,8 +64,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const handleComplete = (data: any) => {
     setAddress(data.address);
+    setZonecode(data.zonecode);
     setIsModalVisible(false);
-    console.log(address);
+    console.log(data);
   };
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
@@ -126,14 +136,26 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (title !== "") myVariables.updateBoardInput.title = title;
     if (contents !== "") myVariables.updateBoardInput.contents = contents;
     //writer는 어차피 안바껴서 선언 x, (플레이그라운드 보면 필수가 아님!!)
+    if (zonecode || address || detailAddress) {
+      myVariables.updateBoardInput.boardAddress = {};
+      if (zonecode)
+        myVariables.updateBoardInput.boardAddress.zipcode = zonecode;
+      if (address) myVariables.updateBoardInput.boardAddress.address = address;
+      if (detailAddress)
+        myVariables.updateBoardInput.boardAddress.addressDetail = detailAddress;
+    }
     try {
       await updateBoard({
         variables: myVariables,
       });
-      alert("수정완료!");
+      Modal.success({
+        content: "(게시글 수정!)",
+      });
       router.push("/boards/" + router.query.boardId);
     } catch (error) {
-      alert(error);
+      Modal.error({
+        content: error,
+      });
     }
   };
 
@@ -160,14 +182,23 @@ export default function BoardWrite(props: IBoardWriteProps) {
               title: title,
               contents: contents,
               youtubeUrl: youtube,
+              boardAddress: {
+                zipcode: zonecode,
+                address: address,
+                addressDetail: detailAddress,
+              },
             },
           },
         });
         console.log(result);
-        alert("게시물 등록에 성공하였습니다!");
+        Modal.success({
+          content: "(게시글 등록!)",
+        });
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
-        console.log(error.message);
+        Modal.error({
+          content: error,
+        });
       }
     }
   };
@@ -202,6 +233,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
       handleComplete={handleComplete}
       isModalVisible={isModalVisible}
       onClickZip={onClickZip}
+      address={address}
+      zonecode={zonecode}
+      onChangeDetailAddress={onChangeDetailAddress}
+      detailAddress={detailAddress}
     />
   );
 }

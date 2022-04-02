@@ -93,7 +93,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       <InputWrapper>
         <Label>주소</Label>
         <ZipcodeWrapper>
-          <Zipcode placeholder="07250" />
+          <Zipcode
+            placeholder="07250"
+            value={
+              props.zonecode ||
+              props.data?.fetchBoard.boardAddress.zipcode ||
+              ""
+            }
+          />
           <SearchButton onClick={props.onClickZip}>우편번호 검색</SearchButton>
         </ZipcodeWrapper>
         {/* ---------------모달-------------------- */}
@@ -107,8 +114,15 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </Modal>
         )}
         {/* --------------------------------------- */}
-        <Address />
-        <Address />
+        <Address
+          value={
+            props.address || props.data?.fetchBoard.boardAddress.address || ""
+          }
+        />
+        <Address
+          onChange={props.onChangeDetailAddress}
+          defaultValue={props.data?.fetchBoard.boardAddress.addressDetail}
+        />
       </InputWrapper>
       <InputWrapper>
         <Label>유튜브</Label>

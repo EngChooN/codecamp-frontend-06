@@ -32,6 +32,11 @@ export const FETCH_BOARDS = gql`
       title
       createdAt
       youtubeUrl
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;

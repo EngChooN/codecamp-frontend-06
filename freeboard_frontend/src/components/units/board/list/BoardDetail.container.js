@@ -7,6 +7,7 @@ import {
   LIKE_BOARD,
   DISLIKE_BOARD,
 } from "./BoardDetail.queries";
+import { Modal } from "antd";
 
 export default function BoardDetail() {
   const router = useRouter();
@@ -34,14 +35,27 @@ export default function BoardDetail() {
           boardId: router.query.boardId,
         },
       });
-      alert("삭제성공!");
+      Modal.success({
+        content: "(글 삭제 성공! : 저를 지우지 말아주세요...)",
+      });
       router.push("/boards");
     } catch (error) {
-      alert(error);
+      Modal.error({
+        content: error,
+      });
     }
   };
 
-  //좋아요 클릭
+  // 팝오버
+  const popover = (
+    <div>
+      <p>{data?.fetchBoard.boardAddress.zipcode}</p>
+      <p>{data?.fetchBoard.boardAddress.address}</p>
+      <p>{data?.fetchBoard.boardAddress.addressDetail}</p>
+    </div>
+  );
+
+  // 좋아요 클릭
   const onClickLike = () => {
     likeBoard({
       variables: {
@@ -54,7 +68,9 @@ export default function BoardDetail() {
         },
       ],
     });
-    alert("좋아요 꾸욱!");
+    Modal.success({
+      content: "(좋아요! : 완전 좋다...)",
+    });
   };
 
   const onClickDislike = () => {
@@ -69,7 +85,9 @@ export default function BoardDetail() {
         },
       ],
     });
-    alert("완전 싫다...");
+    Modal.success({
+      content: "(실어요! : 완전 싫다...)",
+    });
   };
 
   return (
@@ -80,6 +98,7 @@ export default function BoardDetail() {
       onClickMoveBoardDelete={onClickMoveBoardDelete}
       onClickLike={onClickLike}
       onClickDislike={onClickDislike}
+      popover={popover}
     />
   );
 }

@@ -1,10 +1,17 @@
 import CommentDetailUI from "./CommentDetail.presenter";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_COMMENTS, FETCH_COMMENTS } from "./CommentDetail.queries";
+import {
+  DELETE_COMMENTS,
+  FETCH_COMMENTS,
+  UPDATE_COMMENT,
+} from "./CommentDetail.queries";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function CommentDetail(props) {
+  const isCommentEdit = false;
+  const [updateBoardComment] = useMutation(UPDATE_COMMENT);
+
   const isEdit = false;
   const [deleteBoardComment] = useMutation(DELETE_COMMENTS);
   const router = useRouter();
@@ -59,14 +66,30 @@ export default function CommentDetail(props) {
           },
         ],
       });
-      alert("댓글이 삭제되었습니다!");
+      Modal.success({
+        content: "(댓글삭제 성공!)",
+      });
     } catch (error) {
-      alert(error);
+      Modal.error({
+        content: error,
+      });
     }
   };
 
-  const onClickEditComment = () => {
-    alert("수정");
+  const onClickEditComment = async () => {
+    await updateBoardComment({
+      variables: {
+        updateBoardCommentInput: {
+          contents: contents,
+          rating: rating,
+        },
+        password: password,
+        boardCommentId: boardCommentId,
+      },
+    });
+    Modal.success({
+      content: "(수정아직 없음 ㅜ..)",
+    });
   };
 
   return (
@@ -81,6 +104,7 @@ export default function CommentDetail(props) {
       handleOk={handleOk}
       handleCancel={handleCancel}
       onChangePassword={onChangePassword}
+      isCommentEdit={isCommentEdit}
     />
   );
 }

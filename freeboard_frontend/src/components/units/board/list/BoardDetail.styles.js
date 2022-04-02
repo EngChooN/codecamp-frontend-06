@@ -60,10 +60,12 @@ export const Writer_right = styled.div`
 `;
 
 export const Writer_icon = styled.img`
+  cursor: pointer;
   margin-left: 30px;
 `;
 
 export const Writer_icon2 = styled.img`
+  cursor: pointer;
   margin-left: 30px;
 `;
 
