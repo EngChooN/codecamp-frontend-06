@@ -149,7 +149,7 @@ export default function BoardListPage() {
         return (
           <BoardsRow key={el._id}>
             <BoardsColumn>
-              {dataBoardsCount.fetchBoardsCount -
+              {dataBoardsCount?.fetchBoardsCount -
                 index * Number(selectPageNumber) -
                 index}
             </BoardsColumn>

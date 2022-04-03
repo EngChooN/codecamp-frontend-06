@@ -1,10 +1,6 @@
 import CommentDetailUI from "./CommentDetail.presenter";
 import { useMutation, useQuery } from "@apollo/client";
-import {
-  DELETE_COMMENTS,
-  FETCH_COMMENTS,
-  UPDATE_COMMENT,
-} from "./CommentDetail.queries";
+import { DELETE_COMMENTS, FETCH_COMMENTS } from "./CommentDetail.queries";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Modal } from "antd";
@@ -12,12 +8,15 @@ import { Modal } from "antd";
 export default function CommentDetail(props) {
   const [isCommentEdit, setIsCommentEdit] = useState(false); // 이 값이 true면 해당 폼이 인풋으로 바뀜
   const [editCommentId, setEditCommentId] = useState(""); // 수정할 댓글 아이디 값
+  const [editCommentWriter, setEditCommentWriter] = useState("");
+  const [editCommentContents, setEditCommentContents] = useState("");
+  const [editCommentRating, setEditCommentRating] = useState("");
   // const [updateBoardComment] = useMutation(UPDATE_COMMENT);
 
   const isEdit = false;
   const [deleteBoardComment] = useMutation(DELETE_COMMENTS);
   const router = useRouter();
-  const { data } = useQuery(FETCH_COMMENTS, {
+  const { data, fetchMore } = useQuery(FETCH_COMMENTS, {
     variables: {
       boardId: router.query.boardId,
     },
@@ -78,23 +77,32 @@ export default function CommentDetail(props) {
     }
   };
 
-  const onClickEditComment = (event) => {
-    console.log(event.target.id);
+  const onClickEditComment = (id, writer, contents, rating) => {
+    // console.log(event.target.id);
+    // setEditCommentId(event.target.id);
     setIsCommentEdit(true);
-    setEditCommentId(event.target.id);
-    // await updateBoardComment({
-    //   variables: {
-    //     updateBoardCommentInput: {
-    //       contents: contents,
-    //       rating: rating,
-    //     },
-    //     password: password,
-    //     boardCommentId: boardCommentId,
-    //   },
-    // });
-    // Modal.success({
-    //   content: "(수정아직 없음 ㅜ..)",
-    // });
+    console.log(id, writer, contents, rating);
+    setEditCommentId(id);
+    setEditCommentWriter(writer);
+    setEditCommentContents(contents);
+    setEditCommentRating(rating);
+  };
+
+  // 무한스크롤
+  const loadFunc = () => {
+    if (!data) return;
+    fetchMore({
+      variables: { page: Math.ceil(data.fetchBoardComments.length / 10) + 1 },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult.fetchBoardComments)
+          return {
+            fetchBoardComments: [
+              ...prev.fetchBoardComments,
+              ...fetchMoreResult.fetchBoardComments,
+            ],
+          };
+      },
+    });
   };
 
   return (
@@ -109,8 +117,16 @@ export default function CommentDetail(props) {
       handleOk={handleOk}
       handleCancel={handleCancel}
       onChangePassword={onChangePassword}
+      // 댓글수정
       isCommentEdit={isCommentEdit}
       editCommentId={editCommentId}
+      setIsCommentEdit={setIsCommentEdit}
+      //  댓글수정테스트2
+      editCommentWriter={editCommentWriter}
+      editCommentContents={editCommentContents}
+      editCommentRating={editCommentRating}
+      // 무한스크롤
+      loadFunc={loadFunc}
     />
   );
 }

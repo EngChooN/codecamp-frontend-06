@@ -11,6 +11,7 @@ import {
   CommentWriteWriterBtn,
   CommentWritePassword,
   CommentPasswordRatingWrapper,
+  CommentWriteEditBtn,
 } from "./CommentWrite.styles";
 import { Rate } from "antd";
 
@@ -77,9 +78,10 @@ export default function CommentWriteUI(props) {
               type="password"
             ></CommentWritePassword>
             <CommentWriteRating
-            // value={1}
-            // hidden
-            // onChange={props.onChangeCommentRating}
+              // value={1}
+              // hidden
+              // onChange={props.onChangeCommentRating}
+              defaultValue={props.editCommentRating}
             >
               <Rate onChange={props.handleChange} />
             </CommentWriteRating>
@@ -89,6 +91,7 @@ export default function CommentWriteUI(props) {
               placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후에 삭제될 수 있으며, 이에 대한 안전사상 책임은 게시자에게 있습니다."
               onChange={props.onChangeCommentContents}
               type="text"
+              value={props.editCommentContents}
               maxLength={100}
             ></CommentWriteContents>
             <CommentWriteWriter>
@@ -96,15 +99,15 @@ export default function CommentWriteUI(props) {
                 placeholder="작성자 이름"
                 onChange={props.onChangeCommentWriter}
                 type="text"
+                value={props.editCommentWriter}
               ></CommentWriteWriterWriter>
-              <CommentWriteWriterBtn
+              <CommentWriteEditBtn
                 onClick={props.onClickCommentUpdate}
                 isActive={props.isActive}
-                disabled={props.isActive ? false : true}
                 id={props.editCommentId}
               >
                 수정하기
-              </CommentWriteWriterBtn>
+              </CommentWriteEditBtn>
             </CommentWriteWriter>
           </CommentWriteInfo>
           {/* 작성중인 내용 글자 수 실시간 확인 */}

@@ -11,7 +11,7 @@ export default function CommentWrite(props) {
   const [isActive, setIsActive] = useState(false);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_COMMENT);
-  const [editCommentId2, setEditCommentId2] = useState("");
+  // const [editCommentId2, setEditCommentId2] = useState("");
   const [commentWriter, setCommentWriter] = useState("");
   const [commentContents, setCommentContents] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
@@ -105,9 +105,14 @@ export default function CommentWrite(props) {
   // 아이디는 어찌저찌 받았는데 등록 당시 정보를 가져오려면 commentDetail에서 el을 받아야하는데 방법을 모르겠다.
   // 아그리고 props.isCommentEdit = false; 이거 안되는거보니까 commentDetail에서 set함수도 보내줘야 할듯
   const onClickCommentUpdate = async (event) => {
-    setEditCommentId2(event.target.id);
+    // setEditCommentId2(event.target.id);
     console.log("댓글수정함수" + event.target.id);
     try {
+      if (commentContents === "") {
+        return alert("수정 댓글의 내용을 입력해주세요!");
+      } else if (commentPassword === "") {
+        return alert("수정 댓글의 비밀번호를 입력해주세요");
+      }
       await updateBoardComment({
         variables: {
           updateBoardCommentInput: {
@@ -115,13 +120,13 @@ export default function CommentWrite(props) {
             rating: rating,
           },
           password: commentPassword,
-          boardCommentId: editCommentId2,
+          boardCommentId: String(event.target.id),
         },
       });
+      props.setIsCommentEdit(false);
       Modal.success({
         content: "(댓글수정성공!)",
       });
-      props.isCommentEdit = false;
     } catch (error) {
       Modal.error({
         content: error,
@@ -144,9 +149,13 @@ export default function CommentWrite(props) {
       handleChange={handleChange}
       rating={rating}
       // 수정
+      onClickCommentUpdate={onClickCommentUpdate}
       isCommentEdit={props.isCommentEdit}
       editCommentId={props.editCommentId}
-      onClickCommentUpdate={onClickCommentUpdate}
+      // 댓글수정 테스트2
+      editCommentWriter={props.editCommentWriter}
+      editCommentContents={props.editCommentContents}
+      editCommentRating={props.editCommentRating}
     />
   );
 }

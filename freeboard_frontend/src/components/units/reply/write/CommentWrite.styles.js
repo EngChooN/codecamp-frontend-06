@@ -66,6 +66,13 @@ export const CommentWriteWriterBtn = styled.button`
   border: none;
 `;
 
+export const CommentWriteEditBtn = styled.button`
+  width: 7%;
+  background-color: black;
+  color: white;
+  border: none;
+`;
+
 export const CommentWritePassword = styled.input`
   height: 30px;
   border-top: 1px solid #bdbdbd;
