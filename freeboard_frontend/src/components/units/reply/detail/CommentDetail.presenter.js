@@ -52,14 +52,15 @@ export default function CommentDetailUI(props) {
                       <CommentInfoHeaderEdit
                         src="/images/Edit.png"
                         // onClick={props.onClickEditComment}
-                        onClick={() =>
+                        onClick={() => {
                           props.onClickEditComment(
                             el._id,
                             el.writer,
                             el.contents,
                             el.rating
-                          )
-                        }
+                          );
+                          props.onClickCommentEditFocus();
+                        }}
                         id={el._id}
                       />
                       <CommentInfoHeaderDelete
@@ -96,6 +97,8 @@ export default function CommentDetailUI(props) {
       {/* 댓글 수정창 */}
       {props.isCommentEdit && (
         <CommentWrite
+          inputRef={props.inputRef}
+          id="FFF"
           editCommentId={props.editCommentId}
           isCommentEdit={props.isCommentEdit}
           setIsCommentEdit={props.setIsCommentEdit}

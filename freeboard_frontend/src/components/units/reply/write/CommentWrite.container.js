@@ -156,6 +156,8 @@ export default function CommentWrite(props) {
       editCommentWriter={props.editCommentWriter}
       editCommentContents={props.editCommentContents}
       editCommentRating={props.editCommentRating}
+      // 댓글수정 포커스
+      inputRef={props.inputRef}
     />
   );
 }

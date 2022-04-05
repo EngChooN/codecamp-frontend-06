@@ -12,6 +12,7 @@ import {
   CommentWritePassword,
   CommentPasswordRatingWrapper,
   CommentWriteEditBtn,
+  WaraperEdit,
 } from "./CommentWrite.styles";
 import { Rate } from "antd";
 
@@ -70,7 +71,7 @@ export default function CommentWriteUI(props) {
 
       {/* 수정시 폼 */}
       {props.isCommentEdit && (
-        <Waraper>
+        <WaraperEdit>
           <CommentPasswordRatingWrapper>
             <CommentWritePassword
               placeholder="수정할 댓글 비밀번호"
@@ -91,8 +92,9 @@ export default function CommentWriteUI(props) {
               placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후에 삭제될 수 있으며, 이에 대한 안전사상 책임은 게시자에게 있습니다."
               onChange={props.onChangeCommentContents}
               type="text"
-              value={props.editCommentContents}
+              defaultValue={props.editCommentContents}
               maxLength={100}
+              ref={props.inputRef}
             ></CommentWriteContents>
             <CommentWriteWriter>
               <CommentWriteWriterWriter
@@ -112,7 +114,7 @@ export default function CommentWriteUI(props) {
           </CommentWriteInfo>
           {/* 작성중인 내용 글자 수 실시간 확인 */}
           <div>{props.commentContents.length}/100</div>
-        </Waraper>
+        </WaraperEdit>
       )}
     </>
   );

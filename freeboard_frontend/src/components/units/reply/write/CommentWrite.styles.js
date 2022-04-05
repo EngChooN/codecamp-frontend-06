@@ -6,6 +6,13 @@ export const Waraper = styled.div`
   margin-bottom: 40px;
 `;
 
+export const WaraperEdit = styled.div`
+  width: 1200px;
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 10px;
+`;
+
 export const CommentWriteHeader = styled.div`
   display: flex;
   flex-direction: row;

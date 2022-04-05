@@ -2,7 +2,7 @@ import CommentDetailUI from "./CommentDetail.presenter";
 import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_COMMENTS, FETCH_COMMENTS } from "./CommentDetail.queries";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Modal } from "antd";
 
 export default function CommentDetail(props) {
@@ -12,6 +12,7 @@ export default function CommentDetail(props) {
   const [editCommentContents, setEditCommentContents] = useState("");
   const [editCommentRating, setEditCommentRating] = useState("");
   // const [updateBoardComment] = useMutation(UPDATE_COMMENT);
+  const inputRef = useRef(null);
 
   const isEdit = false;
   const [deleteBoardComment] = useMutation(DELETE_COMMENTS);
@@ -77,30 +78,42 @@ export default function CommentDetail(props) {
     }
   };
 
+  // 댓글수정
   const onClickEditComment = (id, writer, contents, rating) => {
     // console.log(event.target.id);
     // setEditCommentId(event.target.id);
     setIsCommentEdit(true);
+    // onClickCommentEditFocus();
     console.log(id, writer, contents, rating);
     setEditCommentId(id);
     setEditCommentWriter(writer);
     setEditCommentContents(contents);
     setEditCommentRating(rating);
+    if (isCommentEdit === true) {
+      setIsCommentEdit(false);
+    }
+  };
+
+  // 댓글 수정 시, 수정창 포커스
+  const onClickCommentEditFocus = () => {
+    inputRef.current?.focus();
   };
 
   // 무한스크롤
   const loadFunc = () => {
     if (!data) return;
     fetchMore({
-      variables: { page: Math.ceil(data.fetchBoardComments.length / 10) + 1 },
+      variables: { page: Math.ceil(data?.fetchBoardComments.length / 10) + 1 },
+      // 왜 length를 10개 밖에 못가져오냐???
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult.fetchBoardComments)
-          return {
-            fetchBoardComments: [
-              ...prev.fetchBoardComments,
-              ...fetchMoreResult.fetchBoardComments,
-            ],
-          };
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
       },
     });
   };
@@ -127,6 +140,9 @@ export default function CommentDetail(props) {
       editCommentRating={editCommentRating}
       // 무한스크롤
       loadFunc={loadFunc}
+      // 댓글 수정 시, 수정창 포커스
+      onClickCommentEditFocus={onClickCommentEditFocus}
+      inputRef={inputRef}
     />
   );
 }

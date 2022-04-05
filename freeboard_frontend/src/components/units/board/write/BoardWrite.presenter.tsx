@@ -58,6 +58,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             placeholder="이름을 적어주세요."
             onChange={props.onChangeWriter}
             defaultValue={props.data?.fetchBoard.writer}
+            id="writer"
           />
           <Error>{props.writerError}</Error>
         </InputWrapper>
@@ -67,6 +68,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             type="password"
             placeholder="비밀번호를 작성해주세요."
             onChange={props.onChangePassword}
+            id="password"
           />
           <Error>{props.passwordError}</Error>
         </InputWrapper>
@@ -78,6 +80,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           placeholder="제목을 작성해주세요."
           onChange={props.onChangeTitle}
           defaultValue={props.data?.fetchBoard.title}
+          id="title"
         />
         <Error>{props.titleError}</Error>
       </InputWrapper>
@@ -87,6 +90,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           placeholder="내용을 작성해주세요."
           onChange={props.onChangeContents}
           defaultValue={props.data?.fetchBoard.contents}
+          id="contents"
         />
         <Error>{props.contentsError}</Error>
       </InputWrapper>
@@ -130,6 +134,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           onChange={props.onChangeYoutube}
           placeholder="링크를 복사해주세요."
           defaultValue={props.data?.fetchBoard.youtubeUrl}
+          id="youtube"
         />
       </InputWrapper>
       <ImageWrapper>
@@ -140,7 +145,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       </ImageWrapper>
       <OptionWrapper>
         <Label>메인설정</Label>
-        <RadioButton type="radio" id="youtube" name="radio-button" />
+        <RadioButton type="radio" id="youtubeRadio" name="radio-button" />
         <RadioLabel htmlFor="youtube">유튜브</RadioLabel>
         <RadioButton type="radio" id="image" name="radio-button" />
         <RadioLabel htmlFor="image">사진</RadioLabel>

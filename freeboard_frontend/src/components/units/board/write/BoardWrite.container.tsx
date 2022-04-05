@@ -32,11 +32,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
 
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
-  const [youtube, setYoutube] = useState("");
+  // 리팩토링 전
+  // const [writer, setWriter] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [contents, setContents] = useState("");
+  // const [youtube, setYoutube] = useState("");
+
+  // 리팩토링 후
+  const [boardWriteInputs, setBoardWriteInputs] = useState({
+    writer: "",
+    password: "",
+    title: "",
+    contents: "",
+    youtube: "",
+  });
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -70,13 +80,22 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
-    setWriter(event.target.value);
+    // setWriter(event.target.value);
+    setBoardWriteInputs({
+      ...boardWriteInputs,
+      [event.target.id]: event.target.value,
+    });
     if (event.target.value !== "") {
       setWriterError("");
     }
 
     // if (event.target.value !== "" && password !== "" && title !== "" && contents !== "") {
-    if (event.target.value && password && title && contents) {
+    if (
+      event.target.value &&
+      boardWriteInputs.password &&
+      boardWriteInputs.title &&
+      boardWriteInputs.contents
+    ) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -84,13 +103,22 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    // setPassword(event.target.value);
+    setBoardWriteInputs({
+      ...boardWriteInputs,
+      [event.target.id]: event.target.value,
+    });
     if (event.target.value !== "") {
       setPasswordError("");
     }
 
     // if (writer !== "" && event.target.value !== "" && title !== "" && contents !== "") {
-    if (writer && event.target.value && title && contents) {
+    if (
+      boardWriteInputs.writer &&
+      event.target.value &&
+      boardWriteInputs.title &&
+      boardWriteInputs.contents
+    ) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -98,13 +126,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+    setBoardWriteInputs({
+      ...boardWriteInputs,
+      [event.target.id]: event.target.value,
+    });
     if (event.target.value !== "") {
       setTitleError("");
     }
 
     // if (writer !== "" && password !== "" && event.target.value !== "" && contents !== "") {
-    if (writer && password && event.target.value && contents) {
+    if (
+      boardWriteInputs.writer &&
+      boardWriteInputs.password &&
+      event.target.value &&
+      boardWriteInputs.contents
+    ) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -112,13 +148,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContents(event.target.value);
+    setBoardWriteInputs({
+      ...boardWriteInputs,
+      [event.target.id]: event.target.value,
+    });
     if (event.target.value !== "") {
       setContentsError("");
     }
 
     // if (writer !== "" && password !== "" && title !== "" && event.target.value !== "") {
-    if (writer && password && title && event.target.value) {
+    if (
+      boardWriteInputs.writer &&
+      boardWriteInputs.password &&
+      boardWriteInputs.title &&
+      event.target.value
+    ) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -130,11 +174,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
       //updateBoardInput을 선언을 안해줘서 안됐었음!! (플레이그라운드 맨 위에 있는건 다 들어가야함!!)
       updateBoardInput: {},
       boardId: String(router.query.boardId),
-      password: password,
+      password: boardWriteInputs.password,
     };
-
-    if (title !== "") myVariables.updateBoardInput.title = title;
-    if (contents !== "") myVariables.updateBoardInput.contents = contents;
+    if (boardWriteInputs.title !== "")
+      myVariables.updateBoardInput.youtubeUrl = boardWriteInputs.youtube;
+    if (boardWriteInputs.title !== "")
+      myVariables.updateBoardInput.title = boardWriteInputs.title;
+    if (boardWriteInputs.contents !== "")
+      myVariables.updateBoardInput.contents = boardWriteInputs.contents;
     //writer는 어차피 안바껴서 선언 x, (플레이그라운드 보면 필수가 아님!!)
     if (zonecode || address || detailAddress) {
       myVariables.updateBoardInput.boardAddress = {};
@@ -160,28 +207,33 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onClickSubmit = async () => {
-    if (writer === "") {
+    if (boardWriteInputs.writer === "") {
       setWriterError("작성자를 입력해주세요.");
     }
-    if (password === "") {
+    if (boardWriteInputs.password === "") {
       setPasswordError("비밀번호를 입력해주세요.");
     }
-    if (title === "") {
+    if (boardWriteInputs.title === "") {
       setTitleError("제목을 입력해주세요.");
     }
-    if (contents === "") {
+    if (boardWriteInputs.contents === "") {
       setContentsError("내용을 입력해주세요.");
     }
-    if (writer !== "" && password !== "" && title !== "" && contents !== "") {
+    if (
+      boardWriteInputs.writer !== "" &&
+      boardWriteInputs.password !== "" &&
+      boardWriteInputs.title !== "" &&
+      boardWriteInputs.contents !== ""
+    ) {
       try {
         const result = await createBoard({
           variables: {
             createBoardInput: {
-              writer: writer,
-              password: password,
-              title: title,
-              contents: contents,
-              youtubeUrl: youtube,
+              writer: boardWriteInputs.writer,
+              password: boardWriteInputs.password,
+              title: boardWriteInputs.title,
+              contents: boardWriteInputs.contents,
+              youtubeUrl: boardWriteInputs.youtube,
               boardAddress: {
                 zipcode: zonecode,
                 address: address,
@@ -205,7 +257,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const onChangeYoutube = (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
-    setYoutube(event.target.value);
+    // setYoutube(event.target.value);
+    setBoardWriteInputs({
+      ...boardWriteInputs,
+      [event.target.id]: event.target.value,
+    });
   };
 
   const onClickZip = () => {
