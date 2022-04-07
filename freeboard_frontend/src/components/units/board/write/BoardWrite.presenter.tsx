@@ -27,6 +27,7 @@ import { Modal, Button } from "antd";
 
 // 인터페이스
 import { ChangeEvent } from "react";
+import ImagesUpload from "../../imagesupload/Imagesupload.container";
 interface IBoardWriteUIProps {
   isActive: boolean;
   writerError: string;
@@ -139,9 +140,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       </InputWrapper>
       <ImageWrapper>
         <Label>사진첨부</Label>
-        <UploadButton>+</UploadButton>
-        <UploadButton>+</UploadButton>
-        <UploadButton>+</UploadButton>
+        {/* <UploadButton> */}
+        <ImagesUpload
+          setImageUrl={props.setImageUrl}
+          imageUrl={props.imageUrl}
+        />
+        {/* </UploadButton> */}
+        {/* <UploadButton>+</UploadButton>
+        <UploadButton>+</UploadButton> */}
       </ImageWrapper>
       <OptionWrapper>
         <Label>메인설정</Label>

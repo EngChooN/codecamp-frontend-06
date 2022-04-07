@@ -32,6 +32,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
 
+  // 이미지url(ImagesUpload 컨테이너에서 받아와야함)
+  const [imageUrl, setImageUrl] = useState<string | undefined>("");
+
   // 리팩토링 전
   // const [writer, setWriter] = useState("");
   // const [password, setPassword] = useState("");
@@ -234,6 +237,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
               title: boardWriteInputs.title,
               contents: boardWriteInputs.contents,
               youtubeUrl: boardWriteInputs.youtube,
+              images: [imageUrl],
               boardAddress: {
                 zipcode: zonecode,
                 address: address,
@@ -293,6 +297,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
       zonecode={zonecode}
       onChangeDetailAddress={onChangeDetailAddress}
       detailAddress={detailAddress}
+      // 이미지url(ImagesUpload 컨테이너에서 받아와야함)
+      setImageUrl={setImageUrl}
+      imageUrl={imageUrl}
     />
   );
 }
