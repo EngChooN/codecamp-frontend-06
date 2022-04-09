@@ -1,13 +1,18 @@
 import { gql, useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import { ChangeEvent, useRef, useState } from "react";
 import { checkFileValidation } from "../../../commons/libraries/validation";
+import { UPLOAD_FILE } from "./ImageUpload.queries";
 
-const UPLOAD_FILE = gql`
-  mutation uploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      url
-    }
-  }
+const UploadButton = styled.button`
+  width: 78px;
+  height: 78px;
+  background-color: #bdbdbd;
+  margin-right: 24px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 25px;
 `;
 
 export default function ImagesUpload(props) {
@@ -42,13 +47,7 @@ export default function ImagesUpload(props) {
 
   return (
     <div>
-      <div>이미지 업로드 연습하기</div>
-      <div
-        style={{ width: "150px", height: "50px", backgroundColor: "gray" }}
-        onClick={onClickImage}
-      >
-        이미지선택
-      </div>
+      <UploadButton onClick={onClickImage}>+</UploadButton>
       <input
         style={{ display: "none" }}
         type="file"

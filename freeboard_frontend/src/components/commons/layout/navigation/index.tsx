@@ -34,6 +34,11 @@ export default function Navigation() {
   const onCilckMoveMain = () => {
     router.push("/boards");
   };
+
+  const onCilckMoveFire = () => {
+    router.push("/firebase");
+  };
+
   return (
     <Wrapper>
       <Menu>
@@ -42,6 +47,8 @@ export default function Navigation() {
         <Nav2>중고마켓</Nav2>
         <Slash src="/images/I.png" />
         <Nav3>마이페이지</Nav3>
+        <Slash src="/images/I.png" />
+        <Nav3 onClick={onCilckMoveFire}>파이어베이스</Nav3>
       </Menu>
     </Wrapper>
   );

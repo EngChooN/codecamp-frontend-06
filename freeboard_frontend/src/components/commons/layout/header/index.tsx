@@ -48,7 +48,7 @@ export default function Header() {
   const router = useRouter();
 
   const onCilckMoveMain = () => {
-    router.push("/boards");
+    router.push("/");
   };
 
   return (

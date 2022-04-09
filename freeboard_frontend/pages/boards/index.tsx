@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
 const FETCH_BOARDS = gql`
-  query fetchBoards($page: Int) {
-    fetchBoards(page: $page) {
+  query fetchBoards($page: Int, $search: String) {
+    fetchBoards(page: $page, search: $search) {
       _id
       writer
       title
@@ -109,7 +109,7 @@ interface IBoardList {
 // -----------------------------------------------------------------------------------
 
 export default function BoardListPage() {
-  //페이지네이션
+  // 페이지네이션
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
   // 게시글번호
@@ -118,6 +118,8 @@ export default function BoardListPage() {
     console.log(a);
     setSelectPageNumber(Number(a));
   };
+  // 검색
+  const [search, setSearch] = useState("");
 
   const { data, refetch } = useQuery(FETCH_BOARDS);
   const router = useRouter();
@@ -130,8 +132,21 @@ export default function BoardListPage() {
     router.push("/boards/new");
   };
 
+  // 검색기능
+  const onChangeSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const onClickSearch = () => {
+    refetch({
+      search: search,
+    });
+  };
+
   return (
     <Warapper>
+      <input type="text" placeholder="검색어 입력" onChange={onChangeSearch} />
+      <button onClick={onClickSearch}>게시물 검색</button>
       <BoardWriteBtn onClick={onClickMoveBoardWrite}>게시글 등록</BoardWriteBtn>
       <BoardsRow_P>
         <BoardsColumn_P>번호</BoardsColumn_P>

@@ -28,6 +28,8 @@ import {
 } from "./BoardDetail.styles";
 import ReactPlayer from "react-player";
 import { Popover } from "antd";
+// 이미지 확대 모달
+import { Image } from "antd";
 
 export default function BoardDetailUI(props) {
   const aaa = new Date(props.data?.fetchBoard.createdAt);
@@ -61,7 +63,19 @@ export default function BoardDetailUI(props) {
             {props.data?.fetchBoard.title} [포트폴리오용]
           </Contents_title>
           <Contents_main>
-            <Contents_img></Contents_img>
+            {/* <Contents_img
+              src={
+                "https://storage.googleapis.com/" +
+                props.data?.fetchBoard.images
+              }
+            /> */}
+            <Image
+              width={400}
+              src={
+                "https://storage.googleapis.com/" +
+                props.data?.fetchBoard.images
+              }
+            />
             <Contents_cnt>{props.data?.fetchBoard.contents}</Contents_cnt>
           </Contents_main>
         </Contents_box>

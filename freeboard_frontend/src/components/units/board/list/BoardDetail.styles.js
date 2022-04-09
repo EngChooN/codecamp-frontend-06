@@ -84,10 +84,10 @@ export const Contents_title = styled.div`
 
 export const Contents_main = styled.div``;
 
-export const Contents_img = styled.div`
+export const Contents_img = styled.img`
   width: 100%;
   height: 480px;
-  background-color: gray;
+
   margin-top: 40px;
 `;
 
