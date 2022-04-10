@@ -18,9 +18,10 @@ const Photo1 = styled.div`
 
 const Photo1Img = styled.img`
   height: 300px;
-  border: 1px solid black;
+  border-radius: 15px;
   width: 100%;
   object-fit: cover;
+  margin: 10px;
 `;
 
 const Photo2 = styled.div`
@@ -30,9 +31,10 @@ const Photo2 = styled.div`
 
 const Photo2Img = styled.img`
   height: 300px;
-  border: 1px solid black;
+  border-radius: 15px;
   width: 100%;
   object-fit: cover;
+  margin: 10px;
 `;
 
 const Photo3 = styled.div`
@@ -42,9 +44,10 @@ const Photo3 = styled.div`
 
 const Photo3Img = styled.img`
   height: 300px;
-  border: 1px solid black;
+  border-radius: 15px;
   width: 100%;
   object-fit: cover;
+  margin: 10px;
 `;
 
 export default function Home() {
