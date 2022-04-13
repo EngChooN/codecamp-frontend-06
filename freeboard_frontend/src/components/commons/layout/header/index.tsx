@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { accessTokenState } from "../../../../commons/libraries/Recoil";
 import { useRecoilState } from "recoil";
 import { gql, useQuery } from "@apollo/client";
+import { withAuth } from "../../hoc/withAuth";
 
 // 로그인 정보
 const FETCH_USER_LOGGED_IN = gql`
@@ -64,7 +65,7 @@ const UserInfo = styled.div`
 
 const BtnWrapper = styled.div``;
 
-export default function Header() {
+function Header() {
   const router = useRouter();
 
   const onClickMoveMain = () => {
@@ -104,3 +105,5 @@ export default function Header() {
     </Wrapper>
   );
 }
+
+export default withAuth(Header);

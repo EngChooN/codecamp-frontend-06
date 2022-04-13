@@ -42,6 +42,7 @@ export default function LoginPage() {
       });
       const accessToken = result.data.loginUser.accessToken;
       setAccessToken(accessToken);
+      localStorage.setItem("accessToken", accessToken);
       alert("성공!");
       return router.push("/");
     }
