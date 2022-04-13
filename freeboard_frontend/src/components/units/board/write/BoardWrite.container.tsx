@@ -272,6 +272,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
     showModal();
   };
 
+  const onClickZip = () => {
+    showModal();
+  };
+
   return (
     <BoardWriteUI
       isActive={isActive}

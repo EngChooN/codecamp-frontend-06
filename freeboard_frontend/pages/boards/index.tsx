@@ -1,6 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
+import _ from "lodash";
 
 const FETCH_BOARDS = gql`
   query fetchBoards($page: Int, $search: String) {
@@ -135,7 +136,14 @@ export default function BoardListPage() {
   // 검색기능
   const onChangeSearch = (event) => {
     setSearch(event.target.value);
+    getDebounce(event.target.value);
   };
+
+  const getDebounce = _.debounce((searchValue) => {
+    refetch({
+      search: searchValue,
+    });
+  }, 500);
 
   const onClickSearch = () => {
     refetch({
