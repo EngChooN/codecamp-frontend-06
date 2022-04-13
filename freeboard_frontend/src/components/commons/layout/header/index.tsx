@@ -1,5 +1,18 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
+import { accessTokenState } from "../../../../commons/libraries/Recoil";
+import { useRecoilState } from "recoil";
+import { gql, useQuery } from "@apollo/client";
+
+// 로그인 정보
+const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      email
+      name
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,22 +55,50 @@ const Title = styled.div`
   cursor: pointer;
 `;
 
+const UserInfo = styled.div`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  font-size: 25px;
+`;
+
 const BtnWrapper = styled.div``;
 
 export default function Header() {
   const router = useRouter();
 
-  const onCilckMoveMain = () => {
+  const onClickMoveMain = () => {
     router.push("/");
   };
+
+  const onClickMoveLogin = () => {
+    router.push("/login");
+  };
+
+  const onClickMoveJoin = () => {
+    router.push("/join");
+  };
+
+  // 로그인 정보
+  const [accessToken] = useRecoilState(accessTokenState);
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
 
   return (
     <Wrapper>
       <HeaderWrapper>
-        <Title onClick={onCilckMoveMain}>Header</Title>
+        <Title onClick={onClickMoveMain}>Header</Title>
         <BtnWrapper>
-          <HeaderBtnLogin>로그인</HeaderBtnLogin>
-          <HeaderBtnJoin>회원가입</HeaderBtnJoin>
+          {accessToken === "" ? (
+            <>
+              <HeaderBtnLogin onClick={onClickMoveLogin}>로그인</HeaderBtnLogin>
+              <HeaderBtnJoin onClick={onClickMoveJoin}>회원가입</HeaderBtnJoin>
+            </>
+          ) : (
+            <>
+              <UserInfo>{data?.fetchUserLoggedIn.name}님 환영합니다.</UserInfo>
+              <HeaderBtnJoin>로그아웃</HeaderBtnJoin>
+            </>
+          )}
         </BtnWrapper>
       </HeaderWrapper>
     </Wrapper>
