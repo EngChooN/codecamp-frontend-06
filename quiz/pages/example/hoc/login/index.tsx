@@ -2,7 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../src/commons/store";
+import { accessTokenState } from "../../../../src/commons/libraries/globalState";
 
 const LOGIN_USER = gql`
   mutation loginUser($email: String!, $password: String!) {
@@ -27,7 +27,6 @@ export default function LoginPage() {
     setPassword(event.target.value);
   };
 
-  // 1. 로그인하기
   const onClickLogin = async () => {
     const result = await loginUser({
       variables: {
@@ -36,17 +35,11 @@ export default function LoginPage() {
       },
     });
     const accessToken = result.data.loginUser.accessToken;
-    console.log(accessToken);
-
-    // 2. 유저정보 받아오기
-
-    // 3. 글로벌스테이트에 저장하기
     setAccessToken(accessToken);
     localStorage.setItem("accessToken", accessToken);
-
-    // 4. 로그인 성공페이지로 이동하기
+    console.log(accessToken);
     alert("로그인 성공!");
-    router.push("/23-05-login-check-success");
+    router.push("/example/hoc/main");
   };
 
   return (

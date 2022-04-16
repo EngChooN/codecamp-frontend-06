@@ -5,11 +5,18 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../commons/libraries/globalState";
 
 export default function ApolloSetting(props) {
-  const [accessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
+  useEffect(() => {
+    const myLocalStorageAccessToken = localStorage.getItem("accessToken");
+    setAccessToken(myLocalStorageAccessToken || "");
+  }, []);
+
   const uploadLink = createUploadLink({
     uri: "http://backend06.codebootcamp.co.kr/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },

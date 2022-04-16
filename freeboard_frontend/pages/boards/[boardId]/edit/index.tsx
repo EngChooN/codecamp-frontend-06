@@ -13,14 +13,11 @@ const FETCH_BOARD = gql`
       likeCount
       dislikeCount
       youtubeUrl
-<<<<<<< Updated upstream
       boardAddress {
         zipcode
         address
         addressDetail
       }
-=======
->>>>>>> Stashed changes
     }
   }
 `;

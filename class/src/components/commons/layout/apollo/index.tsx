@@ -8,11 +8,11 @@ import {
 import { createUploadLink } from "apollo-upload-client";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../../commons/store";
+import { accessTokenState, userInfoState } from "../../../../commons/store";
 
 export default function ApolloSetting(props) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-
+  const [, setUserInfo] = useRecoilState(userInfoState);
   // 방법1
   // if (typeof window === "undefined") {
   //   console.log("여기는 브라우저");
@@ -22,10 +22,12 @@ export default function ApolloSetting(props) {
   //   console.log("여기는 프론트엔드 서버 (yarn dev)");
   // }
 
-  // 방법2
+  // 방법2 (새로고침을 해도 토큰이 안사라지지 않게, 로컬스토리지에서 토큰을 받아 글로벌 스테이트에 넣어준다)
   useEffect(() => {
-    const myLocalStorageAccessToken = localStorage.getItem("accessToken");
-    setAccessToken(myLocalStorageAccessToken || "");
+    const accessToken = localStorage.getItem("accessToken");
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    setAccessToken(accessToken || "");
+    setUserInfo(userInfo);
   }, []);
 
   const uploadLink = createUploadLink({
