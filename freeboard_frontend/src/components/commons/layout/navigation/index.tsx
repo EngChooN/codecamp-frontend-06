@@ -39,12 +39,16 @@ export default function Navigation() {
     router.push("/firebase");
   };
 
+  const onClickMoveStore = () => {
+    router.push("/products");
+  };
+
   return (
     <Wrapper>
       <Menu>
         <Nav1 onClick={onCilckMoveMain}>자유게시판</Nav1>
         <Slash src="/images/I.png" />
-        <Nav2>중고마켓</Nav2>
+        <Nav2 onClick={onClickMoveStore}>중고마켓</Nav2>
         <Slash src="/images/I.png" />
         <Nav3>마이페이지</Nav3>
         <Slash src="/images/I.png" />
