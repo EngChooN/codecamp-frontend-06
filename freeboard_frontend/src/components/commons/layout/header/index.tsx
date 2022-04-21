@@ -65,6 +65,7 @@ const UserInfo = styled.div`
 
 const BtnWrapper = styled.div``;
 
+// ===================================
 function Header() {
   const router = useRouter();
 
@@ -81,8 +82,16 @@ function Header() {
   };
 
   // 로그인 정보
-  const [accessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
+
+  const onClickLogout = () => {
+    setAccessToken("");
+    localStorage.removeItem("accessToken");
+    console.log(router.pathname);
+    router.push(router.pathname);
+    alert("로그아웃 성공!");
+  };
 
   return (
     <Wrapper>
@@ -97,7 +106,7 @@ function Header() {
           ) : (
             <>
               <UserInfo>{data?.fetchUserLoggedIn.name}님 환영합니다.</UserInfo>
-              <HeaderBtnJoin>로그아웃</HeaderBtnJoin>
+              <HeaderBtnJoin onClick={onClickLogout}>로그아웃</HeaderBtnJoin>
             </>
           )}
         </BtnWrapper>

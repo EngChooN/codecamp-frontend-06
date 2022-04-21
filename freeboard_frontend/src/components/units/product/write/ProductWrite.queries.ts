@@ -7,3 +7,19 @@ export const CREATE_PRODUCT = gql`
     }
   }
 `;
+
+export const FETCH_PRODUCT = gql`
+  query fetchUseditem($useditemId: ID!) {
+    fetchUseditem(useditemId: $useditemId) {
+      _id
+      name
+      remarks
+      contents
+      price
+      seller {
+        name
+      }
+      createdAt
+    }
+  }
+`;
