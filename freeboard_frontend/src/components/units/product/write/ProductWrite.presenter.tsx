@@ -12,6 +12,8 @@ export default function ProductWritePresenter(props) {
         placeholder="상품명"
         {...props.register("name")}
         defaultValue={props.data?.fetchUseditem.name}
+        // 이름이 있으면 등록된 글이니까 조건을 주어 disabled!!
+        // disabled={props.data?.fetchUseditem.name !== undefined ? true : false}
       />
       <ReactQuill
         onChange={props.onChangeContents}
@@ -31,9 +33,7 @@ export default function ProductWritePresenter(props) {
         defaultValue={props.data?.fetchUseditem.remarks}
       />
       {props.isEdit === true ? (
-        <button type="button" onClick={props.onClickProductUpdate}>
-          상품수정
-        </button>
+        <button>상품수정</button>
       ) : (
         <button>상품등록</button>
       )}
