@@ -1,10 +1,15 @@
 // import ReactQuill from "react-quill";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function ProductWritePresenter(props) {
+  // useEffect(() => {
+  //   props.reset({ contents: props.data?.fetchUseditem.contents });
+  // }, [props.data]);
+
   return (
     <form onSubmit={props.handleSubmit(props.onClickProductWrite)}>
       <input
@@ -18,6 +23,7 @@ export default function ProductWritePresenter(props) {
       <ReactQuill
         onChange={props.onChangeContents}
         defaultValue={props.data?.fetchUseditem.contents}
+        // value={props.setValue("contents" || "")}
       />
       {/* defaultValue를 지웟다 저장해서 다시 되돌리고 저장해야지만 보인다; */}
       <input

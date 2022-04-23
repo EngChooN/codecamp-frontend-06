@@ -1,6 +1,6 @@
 // import { Contents } from '../../../styles/emotion.js'
 
-import BoardDetail from "../../../src/components/units/board/list/BoardDetail.container";
+import BoardDetail from "../../../src/components/units/board/detail/BoardDetail.container";
 import CommentDetail from "../../../src/components/units/reply/detail/CommentDetail.container";
 import CommentWrite from "../../../src/components/units/reply/write/CommentWrite.container";
 

@@ -17,7 +17,9 @@ export default function ProductWriteContainer(props) {
   });
   const [createUseditem] = useMutation(CREATE_PRODUCT);
   const [updateUseditem] = useMutation(UPDATE_PRODUCT);
-  const { register, handleSubmit, setValue, trigger } = useForm();
+  const { register, handleSubmit, setValue, trigger, reset } = useForm({
+    mode: "onChange",
+  });
 
   const onClickProductWrite = async (data) => {
     console.log(fetchProduct?.fetchUseditem?.name);
@@ -40,17 +42,22 @@ export default function ProductWriteContainer(props) {
         alert(error);
       }
     } else {
+      const updateVariables = {
+        updateUseditemInput: {},
+        useditemId: router.query.productId,
+      };
+
+      if (data.name !== "")
+        updateVariables.updateUseditemInput.name = data.name;
+      if (data.contents !== "")
+        updateVariables.updateUseditemInput.contents = data.contents;
+      if (data.price !== "")
+        updateVariables.updateUseditemInput.price = Number(data.price);
+      if (data.remarks !== "")
+        updateVariables.updateUseditemInput.remarks = data.remarks;
       try {
         const result2 = await updateUseditem({
-          variables: {
-            updateUseditemInput: {
-              name: data.name,
-              remarks: data.remarks,
-              contents: data.contents,
-              price: Number(data.price),
-            },
-            useditemId: router.query.productId,
-          },
+          variables: updateVariables,
         });
         alert("상품정보 업데이트!!!");
         router.push("/products/" + router.query.productId);
@@ -73,6 +80,8 @@ export default function ProductWriteContainer(props) {
       onChangeContents={onChangeContents}
       data={fetchProduct}
       isEdit={props.isEdit}
+      reset={reset}
+      setValue={setValue}
     />
   );
 }

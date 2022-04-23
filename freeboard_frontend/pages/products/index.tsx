@@ -1,5 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import {
+  WrapperPr,
+  Wrapper,
+  ProductList,
+} from "../../src/components/units/product/ProductList.styles";
 
 const FETCH_PRODUCTS = gql`
   query fetchUseditems($isSoldout: Boolean) {
@@ -10,15 +15,17 @@ const FETCH_PRODUCTS = gql`
       seller {
         name
       }
+      images
+      soldAt
     }
   }
 `;
 
-export default function ProductListPage() {
+export default function ProductListPage(props) {
   const router = useRouter();
   const { data } = useQuery(FETCH_PRODUCTS, {
     variables: {
-      isSoldout: false,
+      isSoldout: Boolean,
     },
   });
 
@@ -51,20 +58,20 @@ export default function ProductListPage() {
   };
 
   return (
-    <>
-      <button onClick={onClickMoveProductWrite}>상품등록</button>
-      <hr />
-      {data?.fetchUseditems.map((el, index) => (
-        <div key={index}>
-          <div id={el._id} onClick={onClickMoveProductDetail}>
-            상품명:{el.name}
-          </div>
-          <div>가격:{el.price}</div>
-          <div>판매자:{el.seller.name}</div>
-          <button onClick={onClickBaskets(el)}>장바구니에 담기</button>
-          <hr />
-        </div>
-      ))}
-    </>
+    <WrapperPr>
+      <Wrapper>
+        <button onClick={onClickMoveProductWrite}>상품등록</button>
+        {data?.fetchUseditems.map((el, index) => (
+          <ProductList key={index}>
+            <div id={el._id} onClick={onClickMoveProductDetail}>
+              상품명:{el.name}
+            </div>
+            <div>가격:{el.price}</div>
+            <div>판매자:{el.seller.name}</div>
+            <button onClick={onClickBaskets(el)}>장바구니에 담기</button>
+          </ProductList>
+        ))}
+      </Wrapper>
+    </WrapperPr>
   );
 }

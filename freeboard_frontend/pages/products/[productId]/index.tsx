@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Dompurify from "dompurify";
 
@@ -29,6 +29,13 @@ const FETCH_USER_LOGGED_IN = gql`
   }
 `;
 
+// 삭제
+const DELETE_PRODUCT = gql`
+  mutation deleteUseditem($useditemId: ID!) {
+    deleteUseditem(useditemId: $useditemId)
+  }
+`;
+
 export default function ProductDetailPage() {
   const router = useRouter();
   const { data } = useQuery(FETCH_PRODUCT, {
@@ -36,14 +43,26 @@ export default function ProductDetailPage() {
       useditemId: router.query.productId,
     },
   });
-
   const { data: loginData } = useQuery(FETCH_USER_LOGGED_IN);
+  const [deleteUseditem] = useMutation(DELETE_PRODUCT);
 
   const onClickMoveProductEdit = () => {
     router.push("/products/" + router.query.productId + "/edit");
   };
 
-  const onClickMoveProductDelete = () => {};
+  const onClickMoveProductDelete = () => {
+    try {
+      deleteUseditem({
+        variables: {
+          useditemId: router.query.productId,
+        },
+      });
+      alert("상품 삭제성공!");
+      router.push("/products");
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   return (
     <div>
@@ -57,6 +76,7 @@ export default function ProductDetailPage() {
           }}
         ></div>
       )}
+      <div>상품가격: {data?.fetchUseditem.price}</div>
       <div>REMARKS:{data?.fetchUseditem.remarks}</div>
       <div>{data?.fetchUseditem.createdAt}</div>
       <div>
