@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Mian1 from "../src/components/units/main/Main1.container";
 
 const Wrapper = styled.div`
   width: 1200px;
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 120px;
+  margin-top: 500px;
 `;
 
 const Photo1 = styled.div`

@@ -59,9 +59,7 @@ export default function BoardDetailUI(props) {
           </Writer_right>
         </Header>
         <Contents_box>
-          <Contents_title>
-            {props.data?.fetchBoard.title} [포트폴리오용]
-          </Contents_title>
+          <Contents_title>{props.data?.fetchBoard.title}</Contents_title>
           <Contents_main>
             {/* <Contents_img
               src={

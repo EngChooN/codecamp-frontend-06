@@ -19,6 +19,8 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   height: 150px;
+  z-index: 5;
+  background-color: white;
 `;
 
 const HeaderWrapper = styled.div`
@@ -26,6 +28,9 @@ const HeaderWrapper = styled.div`
   width: 100%;
   justify-content: space-around;
   align-items: center;
+  position: fixed;
+  background-color: white;
+  height: 150px;
 `;
 
 const HeaderBtnLogin = styled.button`

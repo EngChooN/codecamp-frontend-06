@@ -1,12 +1,24 @@
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useState } from "react";
+
+const CREATE_USER = gql`
+  mutation createUser($createUserInput: CreateUserInput!) {
+    createUser(createUserInput: $createUserInput) {
+      _id
+    }
+  }
+`;
 
 export default function JoinPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [createUser] = useMutation(CREATE_USER);
+  const router = useRouter();
 
-  const onClickLogin = () => {
+  const onClickLogin = async () => {
     if (/^\w+@\w+\.\w+$/.test(email) === false) {
       return alert("이메일을 입력해주세요!");
     } else if (name === "") {
@@ -16,7 +28,21 @@ export default function JoinPage() {
     } else if (rePassword === "" || rePassword !== password) {
       alert("비밀번호를 다시 입력해주세요");
     } else {
-      alert("회원가입 성공!");
+      try {
+        const result = await createUser({
+          variables: {
+            createUserInput: {
+              email: email,
+              password: password,
+              name: name,
+            },
+          },
+        });
+        alert("회원가입 성공!");
+        router.push("/login");
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 

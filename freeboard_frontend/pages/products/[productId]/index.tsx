@@ -1,6 +1,23 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Dompurify from "dompurify";
+import {
+  Wrapper,
+  ProductDetail,
+  Name,
+  Seller,
+  Contents,
+  Price,
+  Remarks,
+  CreatedAt,
+  BtnWrapper,
+  Btn,
+  Edit,
+  Delete,
+  Img,
+  Row1,
+  Row2,
+} from "../../../src/components/units/product/ProductDetail.styles";
 
 const FETCH_PRODUCT = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -65,29 +82,35 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div>
-      <div>상품명:{data?.fetchUseditem.name}</div>
-      <div>회원이름:{data?.fetchUseditem.seller.name}</div>
-      상품설명:
-      {typeof window !== "undefined" && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: Dompurify.sanitize(data?.fetchUseditem.contents),
-          }}
-        ></div>
-      )}
-      <div>상품가격: {data?.fetchUseditem.price}</div>
-      <div>REMARKS:{data?.fetchUseditem.remarks}</div>
-      <div>{data?.fetchUseditem.createdAt}</div>
-      <div>
-        {loginData?.fetchUserLoggedIn.email ===
-          data?.fetchUseditem.seller.email && (
-          <>
-            <button onClick={onClickMoveProductEdit}>수정하기</button>
-            <button onClick={onClickMoveProductDelete}>삭제하기</button>
-          </>
+    <Wrapper>
+      <ProductDetail>
+        <Row1>
+          <Seller>{data?.fetchUseditem.seller.name}</Seller>
+          <CreatedAt>DATE: {data?.fetchUseditem.createdAt}</CreatedAt>
+        </Row1>
+        <Name>{data?.fetchUseditem.name}</Name>
+        <Img></Img>
+        {typeof window !== "undefined" && (
+          <Contents
+            dangerouslySetInnerHTML={{
+              __html: Dompurify.sanitize(data?.fetchUseditem.contents),
+            }}
+          ></Contents>
         )}
-      </div>
-    </div>
+        <Row2>
+          <Price>( {data?.fetchUseditem.price} ₩ )</Price>
+          <Remarks>REMARKS: {data?.fetchUseditem.remarks}</Remarks>
+        </Row2>
+        <BtnWrapper>
+          {loginData?.fetchUserLoggedIn.email ===
+            data?.fetchUseditem.seller.email && (
+            <Btn>
+              <Edit onClick={onClickMoveProductEdit}>수정하기</Edit>
+              <Delete onClick={onClickMoveProductDelete}>삭제하기</Delete>
+            </Btn>
+          )}
+        </BtnWrapper>
+      </ProductDetail>
+    </Wrapper>
   );
 }

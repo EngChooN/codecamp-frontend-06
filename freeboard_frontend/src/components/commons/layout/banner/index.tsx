@@ -5,12 +5,14 @@ import Slider from "react-slick";
 
 const Wrapper = styled.div`
   height: 400px;
+  width: 100%;
   background-color: black;
-  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  z-index: 2;
 `;
 
 const Slider1 = styled(Slider)`

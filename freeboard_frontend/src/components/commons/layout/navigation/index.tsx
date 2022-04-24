@@ -6,6 +6,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 550px;
+  width: 100%;
+  z-index: 2;
 `;
 
 const Menu = styled.div`

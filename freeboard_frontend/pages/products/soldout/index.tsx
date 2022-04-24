@@ -13,7 +13,7 @@ import {
   Btn,
   ProductNewBtn,
   ProductListHeader,
-} from "../../src/components/units/product/ProductList.styles";
+} from "../../../src/components/units/product/ProductList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 
 const FETCH_PRODUCTS = gql`
@@ -35,7 +35,7 @@ export default function ProductListPage(props) {
   const router = useRouter();
   const { data, fetchMore } = useQuery(FETCH_PRODUCTS, {
     variables: {
-      isSoldout: false,
+      isSoldout: true,
     },
   });
 
@@ -86,7 +86,7 @@ export default function ProductListPage(props) {
   };
 
   const onClickMoveSoldOutList = () => {
-    router.push("/products/soldout");
+    router.push("/products");
   };
 
   return (
@@ -97,7 +97,7 @@ export default function ProductListPage(props) {
             상품등록
           </ProductNewBtn>
           <ProductNewBtn onClick={onClickMoveSoldOutList}>
-            판매된 상품
+            판매중인 상품
           </ProductNewBtn>
         </ProductListHeader>
         <InfiniteScroll pageStart={0} loadMore={loadFunc} hasMore={true}>
@@ -115,9 +115,9 @@ export default function ProductListPage(props) {
               </ProductInfo>
               <Btn>
                 <Seller>{el.seller.name}</Seller>
-                <BasketBtn onClick={onClickBaskets(el)}>
+                {/* <BasketBtn onClick={onClickBaskets(el)}>
                   장바구니에 담기
-                </BasketBtn>
+                </BasketBtn> */}
                 {el.soldAt !== null ? <div>판매완료</div> : <div></div>}
               </Btn>
             </ProductList>
