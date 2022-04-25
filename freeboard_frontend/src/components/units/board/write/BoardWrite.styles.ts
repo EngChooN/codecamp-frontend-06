@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   /* height: 1847px; */
   border: 1px solid black;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 550px;
   padding-top: 100px;
   padding-bottom: 100px;
   padding-left: 102px;

@@ -24,7 +24,7 @@ const Warapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 550px;
   width: 1200px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;

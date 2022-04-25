@@ -89,15 +89,22 @@ export default function ProductListPage(props) {
     router.push("/products/soldout");
   };
 
+  const onClickMoveBasketsList = () => {
+    router.push("/products/baskets");
+  };
+
   return (
     <WrapperPr>
       <Wrapper>
         <ProductListHeader>
           <ProductNewBtn onClick={onClickMoveProductWrite}>
-            상품등록
+            + 상품등록
           </ProductNewBtn>
           <ProductNewBtn onClick={onClickMoveSoldOutList}>
             판매된 상품
+          </ProductNewBtn>
+          <ProductNewBtn onClick={onClickMoveBasketsList}>
+            장바구니
           </ProductNewBtn>
         </ProductListHeader>
         <InfiniteScroll pageStart={0} loadMore={loadFunc} hasMore={true}>

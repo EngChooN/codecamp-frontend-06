@@ -18,6 +18,7 @@ import {
   Row1,
   Row2,
 } from "../../../src/components/units/product/ProductDetail.styles";
+import PaymentPage from "../../../src/components/units/product/Payment";
 
 const FETCH_PRODUCT = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -32,6 +33,7 @@ const FETCH_PRODUCT = gql`
         email
       }
       createdAt
+      soldAt
     }
   }
 `;
@@ -81,6 +83,10 @@ export default function ProductDetailPage() {
     }
   };
 
+  const onClickMoveToPay = () => {
+    router.push("/products/" + router.query.productId + "/pay");
+  };
+
   return (
     <Wrapper>
       <ProductDetail>
@@ -108,6 +114,14 @@ export default function ProductDetailPage() {
               <Edit onClick={onClickMoveProductEdit}>수정하기</Edit>
               <Delete onClick={onClickMoveProductDelete}>삭제하기</Delete>
             </Btn>
+          )}
+          {data?.fetchUseditem.soldAt === null ? (
+            <PaymentPage
+              name={data?.fetchUseditem.name}
+              price={data?.fetchUseditem.price}
+            />
+          ) : (
+            <div></div>
           )}
         </BtnWrapper>
       </ProductDetail>

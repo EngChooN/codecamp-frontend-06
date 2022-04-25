@@ -1,6 +1,17 @@
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import {
+  Wrapper,
+  Join,
+  Email,
+  Name,
+  Password,
+  Re_password,
+  Btn,
+  Btn_join,
+  Title,
+} from "../../src/components/units/Login.styles";
 
 const CREATE_USER = gql`
   mutation createUser($createUserInput: CreateUserInput!) {
@@ -63,32 +74,37 @@ export default function JoinPage() {
   };
 
   return (
-    <>
-      이메일
-      <input
-        type="text"
-        placeholder="이메일을 입력해주세요"
-        onChange={onChangeEmail}
-      />
-      이름
-      <input
-        type="text"
-        placeholder="이름을 입력해주세요"
-        onChange={onChangeName}
-      />
-      비밀번호
-      <input
-        type="password"
-        placeholder="비밀번호를 입력해주세요"
-        onChange={onChangePassword}
-      />
-      비밀번호 확인
-      <input
-        type="password"
-        placeholder="비밀번호를 입력해주세요"
-        onChange={onChangeRePassword}
-      />
-      <button onClick={onClickLogin}>회원가입</button>
-    </>
+    <Wrapper>
+      <Join>
+        <Title>JOIN</Title>
+
+        <Email
+          type="text"
+          placeholder="이메일을 입력해주세요"
+          onChange={onChangeEmail}
+        />
+
+        <Name
+          type="text"
+          placeholder="이름을 입력해주세요"
+          onChange={onChangeName}
+        />
+
+        <Password
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          onChange={onChangePassword}
+        />
+
+        <Re_password
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          onChange={onChangeRePassword}
+        />
+        <Btn>
+          <Btn_join onClick={onClickLogin}>회원가입</Btn_join>
+        </Btn>
+      </Join>
+    </Wrapper>
   );
 }

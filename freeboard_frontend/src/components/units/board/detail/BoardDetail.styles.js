@@ -6,7 +6,7 @@ export const Waraper = styled.div`
   left: 361px;
   top: 675px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 550px;
 
   /* White */
   background: #ffffff;

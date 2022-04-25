@@ -97,7 +97,7 @@ export default function LoginPage() {
   return (
     <Wrapper>
       <Login>
-        <Title>Login</Title>
+        <Title>LOGIN</Title>
         <InputUserInfo
           type="text"
           placeholder="이메일을 입력해주세요"
