@@ -11,6 +11,9 @@ const FETCH_USER_LOGGED_IN = gql`
     fetchUserLoggedIn {
       email
       name
+      userPoint {
+        amount
+      }
     }
   }
 `;
@@ -70,6 +73,8 @@ const UserInfo = styled.div`
 
 const BtnWrapper = styled.div``;
 
+const Point = styled.button``;
+
 // ===================================
 function Header() {
   const router = useRouter();
@@ -98,6 +103,10 @@ function Header() {
     alert("로그아웃 성공!");
   };
 
+  const onClickMovePointCharge = () => {
+    router.push("/pointCharge");
+  };
+
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -111,7 +120,11 @@ function Header() {
           ) : (
             <>
               <UserInfo>{data?.fetchUserLoggedIn.name}님 환영합니다.</UserInfo>
+              <UserInfo>
+                {data?.fetchUserLoggedIn.userPoint.amount} POINT
+              </UserInfo>
               <HeaderBtnJoin onClick={onClickLogout}>로그아웃</HeaderBtnJoin>
+              <Point onClick={onClickMovePointCharge}>포인트충전</Point>
             </>
           )}
         </BtnWrapper>

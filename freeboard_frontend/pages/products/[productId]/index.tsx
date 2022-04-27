@@ -17,8 +17,8 @@ import {
   Img,
   Row1,
   Row2,
+  PayBtn,
 } from "../../../src/components/units/product/ProductDetail.styles";
-import PaymentPage from "../../../src/components/units/product/Payment";
 
 const FETCH_PRODUCT = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -55,6 +55,15 @@ const DELETE_PRODUCT = gql`
   }
 `;
 
+// 포인트로 상품구매
+const PRODUCT_BUY = gql`
+  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+      _id
+    }
+  }
+`;
+
 export default function ProductDetailPage() {
   const router = useRouter();
   const { data } = useQuery(FETCH_PRODUCT, {
@@ -64,6 +73,7 @@ export default function ProductDetailPage() {
   });
   const { data: loginData } = useQuery(FETCH_USER_LOGGED_IN);
   const [deleteUseditem] = useMutation(DELETE_PRODUCT);
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(PRODUCT_BUY);
 
   const onClickMoveProductEdit = () => {
     router.push("/products/" + router.query.productId + "/edit");
@@ -83,8 +93,18 @@ export default function ProductDetailPage() {
     }
   };
 
-  const onClickMoveToPay = () => {
-    router.push("/products/" + router.query.productId + "/pay");
+  const onClickBuy = () => {
+    try {
+      createPointTransactionOfBuyingAndSelling({
+        variables: {
+          useritemId: data?.fetchUseditem._id,
+        },
+      });
+      alert("구매완료!");
+      router.push("/products");
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -116,10 +136,7 @@ export default function ProductDetailPage() {
             </Btn>
           )}
           {data?.fetchUseditem.soldAt === null ? (
-            <PaymentPage
-              name={data?.fetchUseditem.name}
-              price={data?.fetchUseditem.price}
-            />
+            <PayBtn onClick={onClickBuy}>구매하기</PayBtn>
           ) : (
             <div></div>
           )}

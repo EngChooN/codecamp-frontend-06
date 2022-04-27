@@ -97,3 +97,5 @@ export const Row2 = styled.div`
   align-items: center;
   margin-bottom: 50px;
 `;
+
+export const PayBtn = styled.button``;

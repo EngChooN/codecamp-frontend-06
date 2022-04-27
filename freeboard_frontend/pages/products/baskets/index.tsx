@@ -34,7 +34,7 @@ export default function BasketsPage() {
   useEffect(() => {
     setBaskets(JSON.parse(localStorage.getItem("baskets") || "[]"));
     console.log(baskets);
-  }, [baskets]);
+  }, []);
 
   // 장바구니 삭제
   const onClickBasketsDelete = () => {};
