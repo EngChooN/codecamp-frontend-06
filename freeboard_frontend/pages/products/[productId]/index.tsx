@@ -20,6 +20,7 @@ import {
   PayBtn,
 } from "../../../src/components/units/product/ProductDetail.styles";
 import KakaoMap from "../../../src/components/commons/map";
+import { query } from "firebase/firestore/lite";
 
 const FETCH_PRODUCT = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -29,6 +30,7 @@ const FETCH_PRODUCT = gql`
       remarks
       contents
       price
+      pickedCount
       seller {
         name
         email
@@ -70,6 +72,13 @@ const PRODUCT_BUY = gql`
   }
 `;
 
+// 찜하기 뮤테이션
+const PRODUCT_PICK = gql`
+  mutation toggleUseditemPick($useditemId: ID!) {
+    toggleUseditemPick(useditemId: $useditemId)
+  }
+`;
+
 export default function ProductDetailPage() {
   const router = useRouter();
   const { data } = useQuery(FETCH_PRODUCT, {
@@ -80,6 +89,7 @@ export default function ProductDetailPage() {
   const { data: loginData } = useQuery(FETCH_USER_LOGGED_IN);
   const [deleteUseditem] = useMutation(DELETE_PRODUCT);
   const [createPointTransactionOfBuyingAndSelling] = useMutation(PRODUCT_BUY);
+  const [toggleUseditemPick] = useMutation(PRODUCT_PICK);
 
   const onClickMoveProductEdit = () => {
     router.push("/products/" + router.query.productId + "/edit");
@@ -108,6 +118,27 @@ export default function ProductDetailPage() {
       });
       alert("구매완료!");
       router.push("/products");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  // 찜하기 클릭
+  const onClickPick = () => {
+    try {
+      const result = toggleUseditemPick({
+        variables: {
+          useditemId: router.query.productId,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_PRODUCT,
+            variables: {
+              useditemId: router.query.productId,
+            },
+          },
+        ],
+      });
     } catch (error) {
       alert(error);
     }
@@ -144,6 +175,12 @@ export default function ProductDetailPage() {
             <span key={index}>{el}</span>
           ))}
         </span>
+
+        {/* 찜 */}
+        <div>
+          <span>{data?.fetchUseditem.pickedCount}</span>
+          <button onClick={onClickPick}>찜하기</button>
+        </div>
 
         {/* <KakaoMap
           lat={data?.fetchUseditem?.useditemAddress.lat}

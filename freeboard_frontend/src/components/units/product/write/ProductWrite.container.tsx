@@ -53,14 +53,13 @@ export default function ProductWriteContainer(props) {
 
   // 해쉬태그
   const [hashArr, setHashArr] = useState([]);
-  // 수정해쉬태그
-  const [hashEditArr, setHashEditArr] = useState([]);
-  // setHashEditArr([...fetchProduct?.fetchUseditem.tags, ...hashArr]);
+
   // 해쉬태그 작성 시
   const onKeyUpHashTag = (event) => {
     // 해쉬태그 작성 시, 스페이스바를 누르거나, 값이 빈값이면...
     if (event.keyCode === 32 && event.target.value !== " ") {
       setHashArr([...hashArr, "#" + event.target.value]);
+      // 태그 하나 작성 후, 인풋창을 비워줌
       event.target.value = "";
     }
   };
@@ -81,6 +80,7 @@ export default function ProductWriteContainer(props) {
               useditemAddress: {
                 lat: Number(lat),
                 lng: Number(lng),
+                address: address,
               },
             },
           },
@@ -91,20 +91,33 @@ export default function ProductWriteContainer(props) {
         alert(error);
       }
     } else {
+      // 수정한 해쉬태그 (기존 해쉬 태그 + 내가 친 해쉬태크)
+      const editArr = [...fetchProduct?.fetchUseditem.tags, ...hashArr];
       const updateVariables = {
-        updateUseditemInput: {},
+        updateUseditemInput: {
+          useditemAddress: {},
+        },
         useditemId: router.query.productId,
       };
-
       if (data.name !== "")
         updateVariables.updateUseditemInput.name = data.name;
+
       if (data.contents !== "")
         updateVariables.updateUseditemInput.contents = data.contents;
+
       if (data.price !== "")
         updateVariables.updateUseditemInput.price = Number(data.price);
+
       if (data.remarks !== "")
         updateVariables.updateUseditemInput.remarks = data.remarks;
-      if (hashArr !== []) updateVariables.updateUseditemInput.tags = hashArr;
+
+      if (hashArr !== []) updateVariables.updateUseditemInput.tags = editArr;
+
+      if (fetchProduct?.fetchUseditem.useditemAddress.address !== "") {
+        updateVariables.updateUseditemInput.useditemAddress.address = address;
+        updateVariables.updateUseditemInput.useditemAddress.lat = Number(lat);
+        updateVariables.updateUseditemInput.useditemAddress.lng = Number(lng);
+      }
       try {
         const result2 = await updateUseditem({
           variables: updateVariables,

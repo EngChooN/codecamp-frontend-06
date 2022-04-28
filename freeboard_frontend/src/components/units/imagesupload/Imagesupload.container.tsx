@@ -4,6 +4,14 @@ import { ChangeEvent, useRef, useState } from "react";
 import { checkFileValidation } from "../../../commons/libraries/validation";
 import { UPLOAD_FILE } from "./ImageUpload.queries";
 
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
+    }
+  }
+`;
+
 const UploadButton = styled.button`
   width: 78px;
   height: 78px;

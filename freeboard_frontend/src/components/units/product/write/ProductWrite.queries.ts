@@ -16,12 +16,16 @@ export const FETCH_PRODUCT = gql`
       remarks
       contents
       price
+      tags
+      pickedCount
       seller {
         name
       }
+      useditemAddress {
+        address
+      }
       createdAt
     }
-    tags
   }
 `;
 

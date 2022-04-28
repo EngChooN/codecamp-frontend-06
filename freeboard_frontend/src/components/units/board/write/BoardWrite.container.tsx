@@ -174,7 +174,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const onClickEdit = async () => {
     const myVariables: IMyVariables = {
-      //updateBoardInput을 선언을 안해줘서 안됐었음!! (플레이그라운드 맨 위에 있는건 다 들어가야함!!)
+      //updateBoardInput을 선언을 안해줘서 안되었음!! (플레이그라운드 맨 위에 있는건 다 들어가야함!!)
       updateBoardInput: {},
       boardId: String(router.query.boardId),
       password: boardWriteInputs.password,

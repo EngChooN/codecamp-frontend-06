@@ -27,6 +27,7 @@ const FETCH_PRODUCTS = gql`
       }
       images
       soldAt
+      pickedCount
     }
   }
 `;
@@ -119,6 +120,7 @@ export default function ProductListPage(props) {
                 <Img src={"https://storage.googleapis.com/" + el.images} />
                 <Name>{el.name}</Name>
                 <Price>{el.price} ₩</Price>
+                <span>{el.pickedCount}</span>
               </ProductInfo>
               <Btn>
                 <Seller>{el.seller.name}</Seller>

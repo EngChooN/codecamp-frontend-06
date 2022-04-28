@@ -74,10 +74,22 @@ export default function ProductWritePresenter(props) {
             <span key={index}>{el}</span>
           ))}
         </div>
-        <HashTag type={"text"} onKeyUp={props.onKeyUpHashTag} />
+        <HashTag
+          type={"text"}
+          onKeyUp={props.onKeyUpHashTag}
+          placeholder="태그를 입력 후 스페이스바를 눌러주세요"
+        />
 
         {/* 모달과 주소 */}
         <Button onClick={props.onToggleModal}>주소등록</Button>
+        {/* 수정하기할 때, 나오는 주소 */}
+        <input
+          value={
+            props.address ||
+            props.data?.fetchUseditem.useditemAddress.address ||
+            ""
+          }
+        />
         {props.isOpen && (
           <Modal
             // 아예 모달을 삭제했다가 다시 켜기
@@ -88,11 +100,14 @@ export default function ProductWritePresenter(props) {
             <DaumPostcode onComplete={props.handleComplete} />
           </Modal>
         )}
-
         <KakaoMap
           setLat={props.setLat}
           setLng={props.setLng}
-          address={props.address}
+          address={
+            props.address ||
+            props.data?.fetchUseditem.useditemAddress.address ||
+            ""
+          }
         />
         {props.isEdit === true ? <Edit>상품수정</Edit> : <New>상품등록</New>}
       </NewOrEdit>
