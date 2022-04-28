@@ -19,6 +19,7 @@ import {
   Row2,
   PayBtn,
 } from "../../../src/components/units/product/ProductDetail.styles";
+import KakaoMap from "../../../src/components/commons/map";
 
 const FETCH_PRODUCT = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -34,6 +35,11 @@ const FETCH_PRODUCT = gql`
       }
       createdAt
       soldAt
+      useditemAddress {
+        lat
+        lng
+      }
+      tags
     }
   }
 `;
@@ -107,6 +113,10 @@ export default function ProductDetailPage() {
     }
   };
 
+  console.log(data?.fetchUseditem);
+  console.log(data?.fetchUseditem.useditemAddress?.lat);
+  console.log(data?.fetchUseditem.useditemAddress?.lng);
+
   return (
     <Wrapper>
       <ProductDetail>
@@ -127,6 +137,26 @@ export default function ProductDetailPage() {
           <Price>( {data?.fetchUseditem.price} ₩ )</Price>
           <Remarks>REMARKS: {data?.fetchUseditem.remarks}</Remarks>
         </Row2>
+
+        {/* 해쉬태그 */}
+        <span>
+          {data?.fetchUseditem.tags.map((el, index) => (
+            <span key={index}>{el}</span>
+          ))}
+        </span>
+
+        {/* <KakaoMap
+          lat={data?.fetchUseditem?.useditemAddress.lat}
+          lng={data?.fetchUseditem?.useditemAddress.lng}
+        /> */}
+        {data?.fetchUseditem?.useditemAddress ? (
+          <KakaoMap
+            lat={data?.fetchUseditem?.useditemAddress.lat}
+            lng={data?.fetchUseditem?.useditemAddress.lng}
+          />
+        ) : (
+          ""
+        )}
         <BtnWrapper>
           {loginData?.fetchUserLoggedIn.email ===
             data?.fetchUseditem.seller.email && (

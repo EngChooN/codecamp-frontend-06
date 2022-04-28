@@ -76,3 +76,5 @@ export const Img = styled.div`
   cursor: pointer;
   border-radius: 10px;
 `;
+
+export const HashTag = styled.input``;

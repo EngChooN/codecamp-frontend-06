@@ -7,6 +7,10 @@ import {
 } from "./ProductWrite.queries";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { useState } from "react";
+// yup
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function ProductWriteContainer(props) {
   const router = useRouter();
@@ -17,9 +21,49 @@ export default function ProductWriteContainer(props) {
   });
   const [createUseditem] = useMutation(CREATE_PRODUCT);
   const [updateUseditem] = useMutation(UPDATE_PRODUCT);
-  const { register, handleSubmit, setValue, trigger, reset } = useForm({
-    mode: "onChange",
+
+  // 지도 위도 경도
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  // 지도에 쓸 주소
+  const [address, setAddress] = useState("");
+
+  // yup 스키마
+  const schema = yup.object().shape({
+    name: yup.string().required("빈칸은 ㄴㄴ").min(2, "최소 2자리 이상"),
+    // contents: yup.string().required("빈칸은 ㄴㄴ"),
+    price: yup.number().required("빈칸은ㄴㄴ").positive("숫자만 ㄱㄱ"),
+    remarks: yup.string().required("빈칸은 ㄴㄴ"),
   });
+
+  // 리액트-훅-폼
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    trigger,
+    reset,
+    getValues,
+    formState,
+  } = useForm({
+    mode: "onChange",
+    // yup
+    resolver: yupResolver(schema),
+  });
+
+  // 해쉬태그
+  const [hashArr, setHashArr] = useState([]);
+  // 수정해쉬태그
+  const [hashEditArr, setHashEditArr] = useState([]);
+  // setHashEditArr([...fetchProduct?.fetchUseditem.tags, ...hashArr]);
+  // 해쉬태그 작성 시
+  const onKeyUpHashTag = (event) => {
+    // 해쉬태그 작성 시, 스페이스바를 누르거나, 값이 빈값이면...
+    if (event.keyCode === 32 && event.target.value !== " ") {
+      setHashArr([...hashArr, "#" + event.target.value]);
+      event.target.value = "";
+    }
+  };
 
   const onClickProductWrite = async (data) => {
     console.log(fetchProduct?.fetchUseditem?.name);
@@ -33,6 +77,11 @@ export default function ProductWriteContainer(props) {
               contents: data.contents,
               price: Number(data.price),
               remarks: data.remarks,
+              tags: hashArr,
+              useditemAddress: {
+                lat: Number(lat),
+                lng: Number(lng),
+              },
             },
           },
         });
@@ -55,6 +104,7 @@ export default function ProductWriteContainer(props) {
         updateVariables.updateUseditemInput.price = Number(data.price);
       if (data.remarks !== "")
         updateVariables.updateUseditemInput.remarks = data.remarks;
+      if (hashArr !== []) updateVariables.updateUseditemInput.tags = hashArr;
       try {
         const result2 = await updateUseditem({
           variables: updateVariables,
@@ -72,6 +122,24 @@ export default function ProductWriteContainer(props) {
     trigger("contents");
   };
 
+  // 모달과 다음 주소===================
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleComplete = (data: any) => {
+    console.log(data);
+    setAddress(data.address);
+    // 컴플리트시 주소창만 닫히는데 모달창까지 같이 닫히게 하기 위해서
+    onToggleModal();
+  };
+  // ========================================
+
+  console.log(address);
+  console.log(fetchProduct);
+
   return (
     <ProductWritePresenter
       onClickProductWrite={onClickProductWrite}
@@ -79,9 +147,22 @@ export default function ProductWriteContainer(props) {
       handleSubmit={handleSubmit}
       onChangeContents={onChangeContents}
       data={fetchProduct}
-      isEdit={props.isEdit}
       reset={reset}
+      getValues={getValues}
       setValue={setValue}
+      onKeyUpHashTag={onKeyUpHashTag}
+      hashArr={hashArr}
+      // 위도 경도
+      setLat={setLat}
+      setLng={setLng}
+      // 모달과 주소
+      isOpen={isOpen}
+      onToggleModal={onToggleModal}
+      handleComplete={handleComplete}
+      // 지도에 쓸 주소
+      address={address}
+      // yup 에러
+      formState={formState}
     />
   );
 }

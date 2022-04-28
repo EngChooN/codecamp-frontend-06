@@ -43,7 +43,13 @@ export default function MemoizationConteinerPage() {
       <button onClick={onClickCountLet}>카운트(let) + 1 올리기</button>
 
       <div>카운트(state): {countState}</div>
-      <button onClick={onClickCountState}>카운트(state) + 1 올리기</button>
+      <button
+        onClick={() => {
+          setCountState((prev) => prev + 1);
+        }}
+      >
+        카운트(state) + 1 올리기
+      </button>
       <div>===============================</div>
       <MemoizationPresenterPage countState={countState} />
     </div>

@@ -128,7 +128,7 @@ export default function ProductListPage(props) {
                 {el.soldAt !== null ? <div>판매완료</div> : <div></div>}
               </Btn>
             </ProductList>
-          ))}
+          )) || <div></div>}
         </InfiniteScroll>
       </Wrapper>
     </WrapperPr>
