@@ -86,7 +86,7 @@ export default function BoardDetail() {
       ],
     });
     Modal.success({
-      content: "(실어요! : 완전 싫다...)",
+      content: "(싫어요! : 완전 싫다...)",
     });
   };
 
