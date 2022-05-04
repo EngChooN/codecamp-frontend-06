@@ -18,6 +18,7 @@ export const FETCH_PRODUCT = gql`
       price
       tags
       pickedCount
+      images
       seller {
         name
       }
@@ -39,6 +40,14 @@ export const UPDATE_PRODUCT = gql`
       useditemId: $useditemId
     ) {
       _id
+    }
+  }
+`;
+
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
     }
   }
 `;

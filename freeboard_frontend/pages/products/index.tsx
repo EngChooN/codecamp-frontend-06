@@ -44,7 +44,13 @@ export default function ProductListPage(props) {
     router.push("/products/new");
   };
 
-  const onClickMoveProductDetail = (event) => {
+  const onClickMoveProductDetail = (el) => (event) => {
+    const sawProduct = JSON.parse(localStorage.getItem("sawProduct") || "[]");
+
+    const { __typename, ...newEl } = el;
+    sawProduct.push(newEl);
+    localStorage.setItem("sawProduct", JSON.stringify(sawProduct));
+
     router.push("/products/" + event.target.id);
   };
 
@@ -114,13 +120,13 @@ export default function ProductListPage(props) {
               key={index}
               soldAt={el.soldAt}
               id={el._id}
-              onClick={onClickMoveProductDetail}
+              onClick={onClickMoveProductDetail(el)}
             >
               <ProductInfo>
-                <Img src={"https://storage.googleapis.com/" + el.images} />
+                <Img src={"https://storage.googleapis.com/" + el.images[0]} />
                 <Name>{el.name}</Name>
                 <Price>{el.price} ₩</Price>
-                <span>{el.pickedCount}</span>
+                <span>❤️ {el.pickedCount}</span>
               </ProductInfo>
               <Btn>
                 <Seller>{el.seller.name}</Seller>

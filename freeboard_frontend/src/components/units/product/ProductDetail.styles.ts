@@ -80,10 +80,7 @@ export const Delete = styled.button`
   }
 `;
 
-export const Img = styled.div`
-  width: 100%;
-  height: 300px;
-  background-color: gray;
+export const Img = styled.img`
   margin-bottom: 20px;
 `;
 
@@ -99,3 +96,21 @@ export const Row2 = styled.div`
 `;
 
 export const PayBtn = styled.button``;
+
+export const CommentTitle = styled.div``;
+
+export const Comment = styled.div``;
+
+export const C_Main = styled.div``;
+
+export const C_Profile = styled.div``;
+
+export const C_Name = styled.div``;
+
+export const C_Btns = styled.div``;
+
+export const C_Edit = styled.button``;
+
+export const C_Delete = styled.button``;
+
+export const C_Contents = styled.div``;

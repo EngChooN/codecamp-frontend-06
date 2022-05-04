@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Banner from "./banner";
 import Header from "./header";
 import Navigation from "./navigation";
+import Sidebar from "./sidebar";
 
 const Body = styled.div`
   height: 100%;
@@ -16,6 +17,7 @@ export default function Layout(props) {
       <Header />
       <Banner />
       <Navigation />
+      <Sidebar />
       <Body>{props.children}</Body>
     </Wrapper>
   );

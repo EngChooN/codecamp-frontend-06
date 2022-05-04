@@ -64,9 +64,8 @@ export const New = styled.button`
   cursor: pointer;
 `;
 
-export const Img = styled.div`
+export const Img = styled.img`
   margin-top: 100px;
-  background-color: gray;
   width: 70px;
   height: 70px;
   display: flex;
@@ -78,3 +77,7 @@ export const Img = styled.div`
 `;
 
 export const HashTag = styled.input``;
+
+export const Images = styled.div``;
+
+export const ImagesBtn = styled.div``;

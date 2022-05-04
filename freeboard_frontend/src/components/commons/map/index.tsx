@@ -91,12 +91,12 @@ export default function KakaoMap(props) {
         });
       };
     }
-  }, [props.address]);
+  });
 
   return (
     <div>
       <div>
-        <div id="map" style={{ width: 500, height: 400 }}></div>
+        <div id="map" style={{ width: 500, height: 400, zIndex: 0 }}></div>
       </div>
     </div>
   );

@@ -13,6 +13,8 @@ import {
   New,
   Img,
   HashTag,
+  Images,
+  ImagesBtn,
 } from "./ProductWrite.styles";
 // 모달
 import { Modal, Button } from "antd";
@@ -51,7 +53,6 @@ export default function ProductWritePresenter(props) {
         />
         {/* <span>{props.formState.errors.contents?.message}</span> */}
         {/* defaultValue를 지웟다 저장해서 다시 되돌리고 저장해야지만 보인다; */}
-        <Img>+</Img>
         <Price
           type="text"
           placeholder="상품가격"
@@ -109,6 +110,27 @@ export default function ProductWritePresenter(props) {
             ""
           }
         />
+        <Images>
+          이미지
+          <ImagesBtn onClick={props.onClickImg}>
+            <input
+              style={{ display: "none" }}
+              type="file"
+              onChange={props.onChangeImg}
+              ref={props.myImgRef}
+            />
+            {/* 이미지url이 비어있으면, 등록이 아닌 수정이니까 fetch image를 src로 주고,
+             존재한다면, 등록이거나 수정해서 다시 올린 새로운 사진이므로 imgUrl을 src로 준다. */}
+            <Img
+              src={
+                props.imgUrl === ""
+                  ? "https://storage.googleapis.com/" +
+                    props.data?.fetchUseditem.images[0]
+                  : "https://storage.googleapis.com/" + props.imgUrl
+              }
+            />
+          </ImagesBtn>
+        </Images>
         {props.isEdit === true ? <Edit>상품수정</Edit> : <New>상품등록</New>}
       </NewOrEdit>
     </Wrapper>

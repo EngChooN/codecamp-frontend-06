@@ -4,15 +4,39 @@ import {
   CREATE_PRODUCT,
   FETCH_PRODUCT,
   UPDATE_PRODUCT,
+  UPLOAD_FILE,
 } from "./ProductWrite.queries";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 // yup
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function ProductWriteContainer(props) {
+  // 이미지
+  const myImgRef = useRef(null);
+  const [imgUrl, setImgUrl] = useState("");
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+
+  const onClickImg = () => {
+    myImgRef.current?.click();
+  };
+
+  const onChangeImg = async (event) => {
+    const myImg = event.target.files?.[0];
+
+    try {
+      const result = await uploadFile({
+        variables: { file: myImg },
+      });
+      setImgUrl(result.data?.uploadFile.url);
+      alert("이미지 올리기 성공!");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   const router = useRouter();
   const { data: fetchProduct } = useQuery(FETCH_PRODUCT, {
     variables: {
@@ -77,6 +101,7 @@ export default function ProductWriteContainer(props) {
               price: Number(data.price),
               remarks: data.remarks,
               tags: hashArr,
+              images: [imgUrl],
               useditemAddress: {
                 lat: Number(lat),
                 lng: Number(lng),
@@ -93,12 +118,14 @@ export default function ProductWriteContainer(props) {
     } else {
       // 수정한 해쉬태그 (기존 해쉬 태그 + 내가 친 해쉬태크)
       const editArr = [...fetchProduct?.fetchUseditem.tags, ...hashArr];
+
       const updateVariables = {
         updateUseditemInput: {
           useditemAddress: {},
         },
         useditemId: router.query.productId,
       };
+
       if (data.name !== "")
         updateVariables.updateUseditemInput.name = data.name;
 
@@ -113,11 +140,13 @@ export default function ProductWriteContainer(props) {
 
       if (hashArr !== []) updateVariables.updateUseditemInput.tags = editArr;
 
-      if (fetchProduct?.fetchUseditem.useditemAddress.address !== "") {
+      if (address || lat || lng) {
         updateVariables.updateUseditemInput.useditemAddress.address = address;
         updateVariables.updateUseditemInput.useditemAddress.lat = Number(lat);
         updateVariables.updateUseditemInput.useditemAddress.lng = Number(lng);
       }
+
+      if (imgUrl !== "") updateVariables.updateUseditemInput.images = [imgUrl];
       try {
         const result2 = await updateUseditem({
           variables: updateVariables,
@@ -176,6 +205,11 @@ export default function ProductWriteContainer(props) {
       address={address}
       // yup 에러
       formState={formState}
+      // 이미지
+      onClickImg={onClickImg}
+      onChangeImg={onChangeImg}
+      myImgRef={myImgRef}
+      imgUrl={imgUrl}
     />
   );
 }

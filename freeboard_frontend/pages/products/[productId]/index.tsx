@@ -18,9 +18,19 @@ import {
   Row1,
   Row2,
   PayBtn,
+  CommentTitle,
+  Comment,
+  C_Main,
+  C_Profile,
+  C_Name,
+  C_Btns,
+  C_Edit,
+  C_Delete,
+  C_Contents,
 } from "../../../src/components/units/product/ProductDetail.styles";
 import KakaoMap from "../../../src/components/commons/map";
-import { query } from "firebase/firestore/lite";
+import CommentComponent from "../../../src/components/units/product/comment/write/ProductCommentWrite";
+import { useState } from "react";
 
 const FETCH_PRODUCT = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -42,6 +52,7 @@ const FETCH_PRODUCT = gql`
         lng
       }
       tags
+      images
     }
   }
 `;
@@ -79,8 +90,33 @@ const PRODUCT_PICK = gql`
   }
 `;
 
+// 댓글목록 뮤테이션
+const PRODUCT_COMMENTS = gql`
+  query fetchUseditemQuestions($useditemId: ID!) {
+    fetchUseditemQuestions(useditemId: $useditemId) {
+      _id
+      user {
+        name
+      }
+      contents
+    }
+  }
+`;
+
+// 댓글삭제 뮤테이션
+const PRODUCT_COMMENT_DELETE = gql`
+  mutation deleteUseditemQuestion($useditemQuestionId: ID!) {
+    deleteUseditemQuestion(useditemQuestionId: $useditemQuestionId)
+  }
+`;
+
 export default function ProductDetailPage() {
   const router = useRouter();
+  const { data: comments } = useQuery(PRODUCT_COMMENTS, {
+    variables: {
+      useditemId: router.query.productId,
+    },
+  });
   const { data } = useQuery(FETCH_PRODUCT, {
     variables: {
       useditemId: router.query.productId,
@@ -90,6 +126,7 @@ export default function ProductDetailPage() {
   const [deleteUseditem] = useMutation(DELETE_PRODUCT);
   const [createPointTransactionOfBuyingAndSelling] = useMutation(PRODUCT_BUY);
   const [toggleUseditemPick] = useMutation(PRODUCT_PICK);
+  const [deleteUseditemQuestion] = useMutation(PRODUCT_COMMENT_DELETE);
 
   const onClickMoveProductEdit = () => {
     router.push("/products/" + router.query.productId + "/edit");
@@ -148,6 +185,35 @@ export default function ProductDetailPage() {
   console.log(data?.fetchUseditem.useditemAddress?.lat);
   console.log(data?.fetchUseditem.useditemAddress?.lng);
 
+  const [isEditComment, setIsEditComment] = useState("");
+  const [commentEdit, setCommentEdit] = useState(false);
+  // 댓글 수정버튼 누르면
+  const onClickCommentEdit = (index) => (event) => {
+    if (event.target.id === comments?.fetchUseditemQuestions[index]._id) {
+      setCommentEdit(true);
+      setIsEditComment(event.target.id);
+    }
+  };
+
+  // 댓글 삭제버튼 누르면
+  const onClickCommentDelete = (event) => {
+    deleteUseditemQuestion({
+      variables: {
+        useditemQuestionId: event.target.id,
+      },
+      refetchQueries: [
+        {
+          query: PRODUCT_COMMENTS,
+          variables: {
+            useditemId: router.query.productId,
+          },
+        },
+      ],
+    });
+  };
+
+  console.log(data);
+
   return (
     <Wrapper>
       <ProductDetail>
@@ -156,7 +222,11 @@ export default function ProductDetailPage() {
           <CreatedAt>DATE: {data?.fetchUseditem.createdAt}</CreatedAt>
         </Row1>
         <Name>{data?.fetchUseditem.name}</Name>
-        <Img></Img>
+        <Img
+          src={
+            "https://storage.googleapis.com/" + data?.fetchUseditem.images[0]
+          }
+        />
         {typeof window !== "undefined" && (
           <Contents
             dangerouslySetInnerHTML={{
@@ -208,6 +278,41 @@ export default function ProductDetailPage() {
             <div></div>
           )}
         </BtnWrapper>
+        {/* ------- */}
+        <CommentTitle>댓글</CommentTitle>
+        {/* 댓글 작성창 */}
+        <CommentComponent useditemId={router.query.productId} />
+        {comments?.fetchUseditemQuestions.map((el, index) => (
+          <Comment key={index}>
+            <Row1>
+              <C_Main>
+                <C_Profile></C_Profile>
+                <C_Name>{el.user.name}</C_Name>
+              </C_Main>
+              <C_Btns>
+                <C_Edit onClick={onClickCommentEdit(index)} id={el._id}>
+                  수정
+                </C_Edit>
+                <C_Delete onClick={onClickCommentDelete} id={el._id}>
+                  삭제
+                </C_Delete>
+              </C_Btns>
+            </Row1>
+            <Row2>
+              <C_Contents>{el.contents}</C_Contents>
+            </Row2>
+            {/* 댓글 수정창 */}
+            {commentEdit === true && isEditComment === el._id && (
+              <CommentComponent
+                commentEdit={commentEdit}
+                useditemId={router.query.productId}
+                commentsId={el._id}
+                editContents={comments?.fetchUseditemQuestions[index].contents}
+              />
+            )}
+          </Comment>
+        ))}
+        {/* ------- */}
       </ProductDetail>
     </Wrapper>
   );

@@ -25,7 +25,8 @@ export const ProductList = styled.div`
   height: 90px;
   padding: 15px;
   // 판매완료 날짜가 있으면 배경색을 빨갛게 하기
-  background-color: ${(props) => (props.soldAt !== null ? "red" : "none")};
+  /* background-color: ${(props) =>
+    props.soldAt !== null ? "red" : "none"}; */
   :hover {
     background-color: rgba(0, 0, 0, 0.05);
     cursor: pointer;
@@ -43,11 +44,17 @@ export const Name = styled.div`
   font-weight: 800;
   font-size: 20px;
   margin-right: 30px;
+
+  // 글자가 상자를 넘어갈 시, ...처리
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Price = styled.div`
   font-weight: 200;
   font-size: 20px;
+  margin-right: 20px;
 `;
 
 export const Seller = styled.div`
