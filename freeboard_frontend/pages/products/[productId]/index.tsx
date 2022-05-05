@@ -31,6 +31,8 @@ import {
 import KakaoMap from "../../../src/components/commons/map";
 import CommentComponent from "../../../src/components/units/product/comment/write/ProductCommentWrite";
 import { useState } from "react";
+import RecommentListPage from "../../../src/components/units/product/comment/recomment/list/RecommentList";
+import RecommentWriterPage from "../../../src/components/units/product/comment/recomment/write/RecommentWrite";
 
 const FETCH_PRODUCT = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -212,8 +214,17 @@ export default function ProductDetailPage() {
     });
   };
 
-  console.log(data);
-
+  const [recommentWrite, setRecommentWrite] = useState("");
+  const onClickRecommentWrite = (event) => {
+    setRecommentWrite(event.target.id);
+    // if (el._id === event.target.id) {
+    //   setRecommentWrite(true);
+    // } else {
+    //   setRecommentWrite(false);
+    // }
+    console.log("ID!" + event.target.id);
+  };
+  console.log("STATE!!" + recommentWrite);
   return (
     <Wrapper>
       <ProductDetail>
@@ -252,10 +263,6 @@ export default function ProductDetailPage() {
           <button onClick={onClickPick}>찜하기</button>
         </div>
 
-        {/* <KakaoMap
-          lat={data?.fetchUseditem?.useditemAddress.lat}
-          lng={data?.fetchUseditem?.useditemAddress.lng}
-        /> */}
         {data?.fetchUseditem?.useditemAddress ? (
           <KakaoMap
             lat={data?.fetchUseditem?.useditemAddress.lat}
@@ -296,10 +303,20 @@ export default function ProductDetailPage() {
                 <C_Delete onClick={onClickCommentDelete} id={el._id}>
                   삭제
                 </C_Delete>
+                <button onClick={onClickRecommentWrite} id={el._id}>
+                  대댓글작성
+                </button>
               </C_Btns>
             </Row1>
             <Row2>
               <C_Contents>{el.contents}</C_Contents>
+              {/* 대댓글작성 */}
+              <RecommentWriterPage
+                recommentWrite={recommentWrite}
+                el={el._id}
+              />
+              {/* 대댓글리스트 */}
+              <RecommentListPage el={el} />
             </Row2>
             {/* 댓글 수정창 */}
             {commentEdit === true && isEditComment === el._id && (

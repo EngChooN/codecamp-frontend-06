@@ -107,6 +107,10 @@ function Header() {
     router.push("/pointCharge");
   };
 
+  const onClickMoveBaketsList = () => {
+    router.push("/products/baskets");
+  };
+
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -122,6 +126,9 @@ function Header() {
               <UserInfo>{data?.fetchUserLoggedIn.name}님 환영합니다.</UserInfo>
               <UserInfo>
                 {data?.fetchUserLoggedIn.userPoint.amount} POINT
+                <button onClick={onClickMoveBaketsList}>
+                  🛍 {JSON.parse(localStorage.getItem("baskets") || "[]").length}
+                </button>
               </UserInfo>
               <HeaderBtnJoin onClick={onClickLogout}>로그아웃</HeaderBtnJoin>
               <Point onClick={onClickMovePointCharge}>포인트충전</Point>

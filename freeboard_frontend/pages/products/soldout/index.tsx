@@ -25,6 +25,9 @@ const FETCH_PRODUCTS = gql`
       seller {
         name
       }
+      buyer {
+        name
+      }
       images
       soldAt
     }
@@ -115,6 +118,8 @@ export default function ProductListPage(props) {
               </ProductInfo>
               <Btn>
                 <Seller>{el.seller.name}</Seller>
+                <Seller>{el.buyer.name}님이 구매하셨습니다.</Seller>
+
                 {/* <BasketBtn onClick={onClickBaskets(el)}>
                   장바구니에 담기
                 </BasketBtn> */}
