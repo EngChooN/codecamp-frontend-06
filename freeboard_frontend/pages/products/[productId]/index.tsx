@@ -310,13 +310,16 @@ export default function ProductDetailPage() {
             </Row1>
             <Row2>
               <C_Contents>{el.contents}</C_Contents>
-              {/* 대댓글작성 */}
+              {/* 얘는 대댓글작성버튼 누르면 보이는 애 입니다. */}
               <RecommentWriterPage
                 recommentWrite={recommentWrite}
-                el={el._id}
+                qId={el._id}
               />
               {/* 대댓글리스트 */}
-              <RecommentListPage el={el} />
+              <RecommentListPage
+                el={el}
+                // ---
+              />
             </Row2>
             {/* 댓글 수정창 */}
             {commentEdit === true && isEditComment === el._id && (
