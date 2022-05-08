@@ -108,7 +108,7 @@ export default function LoginPage() {
           placeholder="비밀번호를 입력해주세요"
           onChange={onChangePassword}
         />
-        {/* <Check type="checkbox" /> 로그인 상태 유지 */}
+        {/* <Check type="checkbox" /> 로그인 상태 유지! */}
         <LoginBtn onClick={onClickLogin}>로그인하기</LoginBtn>
       </Login>
     </Wrapper>
