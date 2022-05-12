@@ -5,7 +5,7 @@ export default function test() {
 
   return (
     <>
-      {/* 원형 그래프 */}
+      {/* 원형-그래프 */}
       <RadialChart data={myData} width={300} height={300} />
     </>
   );
