@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import Banner from "./banner";
 import Header from "./header";
 import Navigation from "./navigation";
@@ -12,12 +13,19 @@ const Body = styled.div`
 const Wrapper = styled.div``;
 
 export default function Layout(props) {
+  const router = useRouter();
+  const currentUrl = router.asPath;
+  console.log(currentUrl);
   return (
     <Wrapper>
-      <Header />
-      <Banner />
-      <Navigation />
-      <Sidebar />
+      {currentUrl === "/" ? null : (
+        <>
+          <Header />
+          <Banner />
+          <Navigation />
+          <Sidebar />
+        </>
+      )}
       <Body>{props.children}</Body>
     </Wrapper>
   );
