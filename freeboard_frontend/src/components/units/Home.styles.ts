@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Zoom from "react-reveal/Zoom";
 import Flip from "react-reveal/Flip";
 import Slide from "react-reveal/Slide";
+import Fade from "react-reveal/Fade";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -22,6 +23,9 @@ export const Box1 = styled.section`
 
 export const HelloLottie = styled.iframe`
   border: none;
+  pointer-events: none;
+  height: 400px;
+  width: 400px;
 `;
 
 export const Box1_Btns = styled.div`
@@ -70,7 +74,7 @@ export const Box2 = styled.section`
   justify-content: center;
   width: 100%;
   height: 400px;
-  padding-top: 80px;
+  padding-top: 100px;
 `;
 
 export const Box2_Content_Wrapper = styled.div`
@@ -79,11 +83,12 @@ export const Box2_Content_Wrapper = styled.div`
   padding-top: 100px;
 `;
 
-export const Box2_Slide = styled(Slide)``;
+export const Box2_Slide = styled(Fade)``;
 
 export const ReactLottie = styled.iframe`
   border: none;
   margin-left: 150px;
+  pointer-events: none;
 `;
 
 export const Box2_Content = styled.p`
@@ -97,6 +102,7 @@ export const Box3 = styled.section`
   display: flex;
   justify-content: center;
   height: 400px;
+  margin-top: 100px;
 `;
 
 export const Box3_Content_Wrapper = styled.div`
@@ -105,7 +111,7 @@ export const Box3_Content_Wrapper = styled.div`
   margin-top: 75px;
 `;
 
-export const Box3_Slide = styled(Slide)``;
+export const Box3_Slide = styled(Fade)``;
 
 export const Box3_Content = styled.p`
   font-size: 22px;
@@ -116,6 +122,7 @@ export const Box3_Content = styled.p`
 export const ThinkLottie = styled.iframe`
   border: none;
   margin-right: 150px;
+  pointer-events: none;
 `;
 
 export const Box4 = styled.div`
@@ -123,9 +130,10 @@ export const Box4 = styled.div`
   display: flex;
   justify-content: center;
   height: 400px;
+  margin-top: 30px;
 `;
 
-export const Box4_Slide = styled(Slide)``;
+export const Box4_Slide = styled(Fade)``;
 
 export const Box4_Content = styled.p`
   font-size: 23px;
@@ -142,11 +150,12 @@ export const Box4_Content_Wrapper = styled.div`
 export const StudyLottie = styled.iframe`
   border: none;
   margin-left: 180px;
+  pointer-events: none;
 `;
 
 export const Box5 = styled.section`
   background-color: #f4f4f4;
-  height: 1000px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -155,15 +164,21 @@ export const Box5 = styled.section`
 
 export const Box5_Content_Wrapper = styled.div`
   margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Box5_Content = styled.p`
-  font-size: 25px;
-  font-weight: 200;
+  font-size: 24px;
+  font-weight: 250;
 `;
 
 export const Box5_Review_Wrapper = styled.div`
+  width: 1050px;
   display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
 `;
 
 export const Box5_Review = styled.div`
@@ -171,8 +186,52 @@ export const Box5_Review = styled.div`
     margin-right: 0px;
   }
   margin-right: 40px;
-  width: 300px;
-  height: 530px;
+  width: 320px;
+  height: 550px;
   background-color: white;
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  flex: 0 0 auto;
+`;
+
+export const Box5_Slide = styled(Zoom)``;
+
+export const Review_Name = styled.p`
+  font-size: 17px;
+`;
+
+export const Review_Content_Wrapper = styled.div``;
+
+export const Review_Tile = styled.p`
+  font-size: 16px;
+  margin-bottom: 0;
+`;
+
+export const Review_Content = styled.p``;
+
+export const Box6 = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  width: 100%;
+  margin-bottom: 100px;
+`;
+
+export const Box6_Slide = styled(Slide)``;
+
+export const Box6_Content_Wrapper = styled.div``;
+
+export const Box6_Content = styled.p`
+  font-size: 23px;
+  font-weight: 200;
+`;
+
+export const Pencil_Lottie = styled.iframe`
+  border: none;
+  height: 250px;
+  margin-bottom: 20px;
 `;

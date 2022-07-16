@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Banner from "./banner";
 import Header from "./header";
 import Navigation from "./navigation";
+import Navigation2 from "./navigation2";
 import Sidebar from "./sidebar";
 
 const Body = styled.div`
@@ -18,7 +19,9 @@ export default function Layout(props) {
   console.log(currentUrl);
   return (
     <Wrapper>
-      {currentUrl === "/" ? null : (
+      {currentUrl === "/" ? (
+        <Navigation2 />
+      ) : (
         <>
           <Header />
           <Banner />
