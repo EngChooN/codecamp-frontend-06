@@ -88,7 +88,7 @@ const ElWrapper = styled.div`
 
 export default function Navigation2() {
   const router = useRouter();
-  const menuArray = ["Skills", "About", "Project", "Career & Education"];
+  const menuArray = ["Skills & Info", "About", "Project", "Career & Education"];
 
   const onClickMain = () => {
     document.location.href = "/";
@@ -96,7 +96,7 @@ export default function Navigation2() {
 
   const onClickMenu = (e) => {
     const id = e.target.id;
-    if (id === "Skills") {
+    if (id === "Skills & Info") {
       router.push("/Joonyoung/Skills");
     } else if (id === "About") {
       router.push("/Joonyoung/About");

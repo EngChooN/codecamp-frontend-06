@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import Zoom from "react-reveal/Zoom";
-import Flip from "react-reveal/Flip";
 import Slide from "react-reveal/Slide";
 import Fade from "react-reveal/Fade";
+import Bounce from "react-reveal/Bounce";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -14,7 +14,8 @@ export const Wrapper = styled.div`
 export const Box1 = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-top: 250px;
+  /* justify-content: center; */
   background: url("/images/rending/rending1.jpg") fixed;
   background-size: cover;
   width: 100%;
@@ -24,12 +25,12 @@ export const Box1 = styled.section`
 export const HelloLottie = styled.iframe`
   border: none;
   pointer-events: none;
-  height: 400px;
-  width: 400px;
+  height: 200px;
+  width: 500px;
 `;
 
 export const Box1_Btns = styled.div`
-  margin-top: 20px;
+  margin-top: 210px;
   display: flex;
   justify-content: space-around;
 `;
@@ -69,6 +70,12 @@ export const Box1_Content = styled.p`
   color: black;
 `;
 
+export const Box1_SubContent = styled.p`
+  font-size: 15px;
+  font-weight: 200;
+  margin-top: 20px;
+`;
+
 export const Box2 = styled.section`
   display: flex;
   justify-content: center;
@@ -89,6 +96,7 @@ export const ReactLottie = styled.iframe`
   border: none;
   margin-left: 150px;
   pointer-events: none;
+  height: 300px;
 `;
 
 export const Box2_Content = styled.p`
@@ -123,6 +131,7 @@ export const ThinkLottie = styled.iframe`
   border: none;
   margin-right: 150px;
   pointer-events: none;
+  height: 400px;
 `;
 
 export const Box4 = styled.div`
@@ -151,11 +160,12 @@ export const StudyLottie = styled.iframe`
   border: none;
   margin-left: 180px;
   pointer-events: none;
+  height: 400px;
 `;
 
 export const Box5 = styled.section`
   background-color: #f4f4f4;
-  height: 100vh;
+  height: 91vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,8 +180,9 @@ export const Box5_Content_Wrapper = styled.div`
 `;
 
 export const Box5_Content = styled.p`
-  font-size: 24px;
-  font-weight: 250;
+  font-size: 25px;
+  font-weight: 320;
+  margin-top: 30px;
 `;
 
 export const Box5_Review_Wrapper = styled.div`
@@ -182,9 +193,6 @@ export const Box5_Review_Wrapper = styled.div`
 `;
 
 export const Box5_Review = styled.div`
-  :last-child {
-    margin-right: 0px;
-  }
   margin-right: 40px;
   width: 320px;
   height: 550px;
@@ -228,10 +236,14 @@ export const Box6_Content_Wrapper = styled.div``;
 export const Box6_Content = styled.p`
   font-size: 23px;
   font-weight: 200;
+  margin-right: 90px;
 `;
 
 export const Pencil_Lottie = styled.iframe`
   border: none;
   height: 250px;
   margin-bottom: 20px;
+  pointer-events: none;
 `;
+
+export const Bounce_Wrapper = styled(Bounce)``;

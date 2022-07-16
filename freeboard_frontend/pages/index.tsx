@@ -1,10 +1,14 @@
 import { useRouter } from "next/router";
+import Fade from "react-reveal/Fade";
+
 import {
+  Bounce_Wrapper,
   Box1,
   Box1_Btns,
   Box1_Btn_Github,
   Box1_Btn_Velog,
   Box1_Content,
+  Box1_SubContent,
   Box1_Zoom,
   Box1_Zoom_Wrapper,
   Box2,
@@ -76,249 +80,262 @@ export default function Home() {
   };
 
   const onScrollFunction = () => {
-    setScroll(window.scrollY);
+    // setScroll(window.scrollY);
   };
 
   return (
     <Wrapper onWheel={onScrollFunction}>
       <Box1>
-        <Box1_Zoom>
-          <Box1_Zoom_Wrapper>
-            <HelloLottie src="https://embed.lottiefiles.com/animation/76787"></HelloLottie>
-            <Box1_Content>
-               사용자의 입장에서 코드를 작성하는 프론트엔드 개발자 조준영
-              입니다.
-            </Box1_Content>
-            <Box1_Content>
-              ⚙️ 해당 페이지는 14-inch MacBook Pro 의 Chrome 환경에서
-              제작되었습니다.
-            </Box1_Content>
-            <Box1_Btns>
-              <Tooltip placement="bottom" title={"Visit GitHub"}>
-                <Box1_Btn_Github
-                  src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                  onClick={onClickGithub}
-                />
-              </Tooltip>
-              <Tooltip placement="bottom" title={"Visit Velog"}>
-                <Box1_Btn_Velog
-                  src="https://cdn-icons.flaticon.com/png/512/3669/premium/3669981.png?token=exp=1657452407~hmac=71b8479dbe68314d5d35e977743f13ab"
-                  onClick={onClickVelog}
-                />
-              </Tooltip>
-            </Box1_Btns>
-          </Box1_Zoom_Wrapper>
-        </Box1_Zoom>
+        <Box1_Zoom_Wrapper>
+          <HelloLottie src="https://embed.lottiefiles.com/animation/76787"></HelloLottie>
+          {/* <Box1_Zoom> */}
+          <Box1_Content>
+             사용자의 입장에서 코드를 작성하는 프론트엔드 개발자 조준영 입니다.
+          </Box1_Content>
+          {/* </Box1_Zoom> */}
+          <Box1_Btns>
+            <Tooltip placement="bottom" title={"Visit GitHub"}>
+              <Box1_Btn_Github
+                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                onClick={onClickGithub}
+              />
+            </Tooltip>
+            <Tooltip placement="bottom" title={"Visit Velog"}>
+              <Box1_Btn_Velog
+                src="https://cdn-icons.flaticon.com/png/512/3669/premium/3669981.png?token=exp=1657452407~hmac=71b8479dbe68314d5d35e977743f13ab"
+                onClick={onClickVelog}
+              />
+            </Tooltip>
+          </Box1_Btns>
+          <Box1_SubContent>
+            ⚙️ 해당 페이지는 MacBook Pro 14-inch의 Chrome환경에서
+            제작되었습니다.
+          </Box1_SubContent>
+        </Box1_Zoom_Wrapper>
       </Box1>
       <Box2 ref={wheel}>
-        <Box2_Slide bottom>
-          <Box2_Content_Wrapper>
+        <Box2_Content_Wrapper>
+          <Box2_Slide bottom>
             <Box2_Content>
               React, Next.js, Recoil, Emotion, Apollo-Client, Graphql을 사용한
               웹 개발 경험이 있습니다.
             </Box2_Content>
+          </Box2_Slide>
+          <Box2_Slide bottom>
             <Box2_Content>
               비록 신입이지만 1-2년 경력의 개발자 역량을 갖췄다고 생각합니다.
             </Box2_Content>
-          </Box2_Content_Wrapper>
-        </Box2_Slide>
-        <ReactLottie src="https://embed.lottiefiles.com/animation/93699"></ReactLottie>
+          </Box2_Slide>
+        </Box2_Content_Wrapper>
+        <Fade>
+          <ReactLottie src="https://embed.lottiefiles.com/animation/93699"></ReactLottie>
+        </Fade>
       </Box2>
       <Box3>
-        <ThinkLottie src="https://embed.lottiefiles.com/animation/89660"></ThinkLottie>
-        <Box3_Slide right>
-          <Box3_Content_Wrapper>
+        <Fade>
+          <ThinkLottie src="https://embed.lottiefiles.com/animation/89660"></ThinkLottie>
+        </Fade>
+        <Box3_Content_Wrapper>
+          <Box3_Slide right>
             <Box3_Content>
               평상시 웹서비스를 이용하면서 개인이 콘텐츠를 생산해 양방향으로
               소통하는 페이스북의 등장과, 소셜로그인과 같이 기존의 로그인 보다
               한층 더 편해진 서비스들을 접하면서, 이 분야의 전망과 관심이
               생겼고, 첫 코딩으로 국비지원 자바스프링 풀스텍을 배웠습니다.
             </Box3_Content>
+          </Box3_Slide>
+          <Box3_Slide right>
             <Box3_Content>
               처음으로 웹개발을 접하면서, 내가 어떻게 코드를 작성하는지에 따라
               사용자에게 직접적인 경험을 주는 프론트엔드가 저와 맞는다고 생각이
               들었고 확신이 섰습니다.
             </Box3_Content>
-          </Box3_Content_Wrapper>
-        </Box3_Slide>
+          </Box3_Slide>
+        </Box3_Content_Wrapper>
       </Box3>
       <Box4>
-        <Box4_Slide left>
-          <Box4_Content_Wrapper>
+        <Box4_Content_Wrapper>
+          <Box4_Slide left>
             <Box4_Content>
               졸업을 하고 프론트엔드 개발자가 되어야겠다고 마음을 먹은 후,
               리액트 훅스 등 최신 기술 스택을 이용한 12주 과정 프론트엔드
               부트캠프 코드캠프를 수료했습니다.
             </Box4_Content>
+          </Box4_Slide>
+          <Box4_Slide left>
             <Box4_Content>(2022. 03. 14 ~ 2022. 06. 03)</Box4_Content>
-          </Box4_Content_Wrapper>
-        </Box4_Slide>
-        <StudyLottie src="https://embed.lottiefiles.com/animation/90714"></StudyLottie>
+          </Box4_Slide>
+        </Box4_Content_Wrapper>
+        <Fade>
+          <StudyLottie src="https://embed.lottiefiles.com/animation/90714"></StudyLottie>
+        </Fade>
       </Box4>
       <Box6>
-        <Pencil_Lottie src="https://embed.lottiefiles.com/animation/40991"></Pencil_Lottie>
-        <Box6_Slide bottom>
-          <Box6_Content_Wrapper>
+        <Fade>
+          <Pencil_Lottie src="https://embed.lottiefiles.com/animation/40991"></Pencil_Lottie>
+        </Fade>
+        <Box6_Content_Wrapper>
+          <Box6_Slide bottom>
             <Box6_Content>
               수료 이후 멈추지 않고 발전하기 위해 매일 공부한 것을 블로그로
               작성중이고,
             </Box6_Content>
+          </Box6_Slide>
+          <Box6_Slide bottom>
             <Box6_Content>
               팀프로젝트 리팩토링을 했으며 공유 오피스를 구해 수료생들과의
               스터디를 진행하고 있습니다.
             </Box6_Content>
-          </Box6_Content_Wrapper>
-        </Box6_Slide>
+          </Box6_Slide>
+        </Box6_Content_Wrapper>
       </Box6>
       <Box5>
         <Box5_Slide>
           <Box5_Content_Wrapper>
             <Box5_Content>
-              부트캠프 중 매주 랜덤으로 페어가 바뀌었고, 한 주의 평가를 페어에게
-              받았습니다.
-            </Box5_Content>
-            <Box5_Content>
-              개발자에게 필요한 요소인 커뮤니케이션에서의 긍정적 평가는 빠진적이
-              없습니다.
+              부트캠프 중 매주 랜덤으로 페어가 바뀌었고, 매번 한 주의 평가를
+              각각의 페어에게 받았습니다.
             </Box5_Content>
           </Box5_Content_Wrapper>
         </Box5_Slide>
         <Box5_Review_Wrapper>
-          <Box5_Review>
-            <Review_Name>우** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
-            <Review_Content_Wrapper>
-              <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
-              <Review_Content>
-                의사소통시 상대방 또는 본인의 문제와 상황에 대해서 제대로 인지를
-                하고 소통하시는 것 같습니다. 제가 조준영님께 질문을 하거나,
-                조준영님이 저에게 질문을 할때 질문의 포인트를 정확하게 잘
-                잡아내시는것 같습니다. 그리고 상대방의 감정에 대해서도 잘
-                공감하고 배려와 매너있는 자세가 좋은 것 같습니다.
-              </Review_Content>
-              <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
-              <Review_Content>
-                자신이 모르는 부분을 정확히 집어내어 질문을 하고 상대방의 질문의
-                요지를 잘 집어내는 능력이 있습니다 - 또 다른 PF인 문주현님이
-                첫날부터 학습과정에 어려움이 있었는데 그때 마다 도움을 많이 주는
-                모습이 인상적이었습니다.
-              </Review_Content>
-              <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
-              <Review_Content>
-                1주일의 짧은 시간을 지내면서는 단점보다 장점이 많이 보였기에
-                개선할 부분은 딱히 보이지 않았습니다.
-              </Review_Content>
-            </Review_Content_Wrapper>
-          </Box5_Review>
-          <Box5_Review>
-            <Review_Name>문** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
-            <Review_Content_Wrapper>
-              <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
-              <Review_Content>
-                첫날부터 되게 차분하고 점잖다는 느낌을 받았습니다. 마치 잔잔한
-                해수면 같아 보였습니다. 수업 진행 중에 막히는 부분을 본 적 이
-                없었습니다. 전공자이며 이미 프로젝트를 해본 사람으로써 여유가
-                느껴졌습니다.
-              </Review_Content>
-              <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
-              <Review_Content>
-                남의 일에도 발 벗고 열정적으로 도와주려는 모습이 인상
-                깊었습니다.
-              </Review_Content>
-              <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
-              <Review_Content>
-                코로나 때문에 같이 있었던 시간이 적어서 또한 본인이 여유가
-                없어서 상대방의 개선할 부분을 찾지 못했습니다.
-              </Review_Content>
-            </Review_Content_Wrapper>
-          </Box5_Review>
-          <Box5_Review>
-            <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
-            <Review_Content_Wrapper>
-              <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
-              <Review_Content>
-                일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도 잘되었고
-                이런저런 얘기도 할 수 있어서 좋았습니다
-              </Review_Content>
-              <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
-              <Review_Content>
-                오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
-                도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
-                코드를 작성하시는 창의력도 잘한 부분인것 같습니다
-              </Review_Content>
-              <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
-              <Review_Content>
-                하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속 오류
-                개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면 좋은
-                결과가 있을것 이라고 생각합니다!!
-              </Review_Content>
-            </Review_Content_Wrapper>
-          </Box5_Review>
-          <Box5_Review>
-            <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
-            <Review_Content_Wrapper>
-              <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
-              <Review_Content>
-                일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도 잘되었고
-                이런저런 얘기도 할 수 있어서 좋았습니다
-              </Review_Content>
-              <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
-              <Review_Content>
-                오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
-                도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
-                코드를 작성하시는 창의력도 잘한 부분인것 같습니다
-              </Review_Content>
-              <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
-              <Review_Content>
-                하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속 오류
-                개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면 좋은
-                결과가 있을것 이라고 생각합니다!!
-              </Review_Content>
-            </Review_Content_Wrapper>
-          </Box5_Review>
-          <Box5_Review>
-            <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
-            <Review_Content_Wrapper>
-              <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
-              <Review_Content>
-                일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도 잘되었고
-                이런저런 얘기도 할 수 있어서 좋았습니다
-              </Review_Content>
-              <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
-              <Review_Content>
-                오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
-                도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
-                코드를 작성하시는 창의력도 잘한 부분인것 같습니다
-              </Review_Content>
-              <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
-              <Review_Content>
-                하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속 오류
-                개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면 좋은
-                결과가 있을것 이라고 생각합니다!!
-              </Review_Content>
-            </Review_Content_Wrapper>
-          </Box5_Review>
-          <Box5_Review>
-            <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
-            <Review_Content_Wrapper>
-              <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
-              <Review_Content>
-                일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도 잘되었고
-                이런저런 얘기도 할 수 있어서 좋았습니다
-              </Review_Content>
-              <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
-              <Review_Content>
-                오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
-                도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
-                코드를 작성하시는 창의력도 잘한 부분인것 같습니다
-              </Review_Content>
-              <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
-              <Review_Content>
-                하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속 오류
-                개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면 좋은
-                결과가 있을것 이라고 생각합니다!!
-              </Review_Content>
-            </Review_Content_Wrapper>
-          </Box5_Review>
+          <Bounce_Wrapper>
+            <Box5_Review>
+              <Review_Name>우** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
+              <Review_Content_Wrapper>
+                <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
+                <Review_Content>
+                  의사소통시 상대방 또는 본인의 문제와 상황에 대해서 제대로
+                  인지를 하고 소통하시는 것 같습니다. 제가 조준영님께 질문을
+                  하거나, 조준영님이 저에게 질문을 할때 질문의 포인트를 정확하게
+                  잘 잡아내시는것 같습니다. 그리고 상대방의 감정에 대해서도 잘
+                  공감하고 배려와 매너있는 자세가 좋은 것 같습니다.
+                </Review_Content>
+                <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
+                <Review_Content>
+                  자신이 모르는 부분을 정확히 집어내어 질문을 하고 상대방의
+                  질문의 요지를 잘 집어내는 능력이 있습니다 - 또 다른 PF인
+                  문주현님이 첫날부터 학습과정에 어려움이 있었는데 그때 마다
+                  도움을 많이 주는 모습이 인상적이었습니다.
+                </Review_Content>
+                <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
+                <Review_Content>
+                  1주일의 짧은 시간을 지내면서는 단점보다 장점이 많이 보였기에
+                  개선할 부분은 딱히 보이지 않았습니다.
+                </Review_Content>
+              </Review_Content_Wrapper>
+            </Box5_Review>
+            <Box5_Review>
+              <Review_Name>문** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
+              <Review_Content_Wrapper>
+                <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
+                <Review_Content>
+                  첫날부터 되게 차분하고 점잖다는 느낌을 받았습니다. 마치 잔잔한
+                  해수면 같아 보였습니다. 수업 진행 중에 막히는 부분을 본 적 이
+                  없었습니다. 전공자이며 이미 프로젝트를 해본 사람으로써 여유가
+                  느껴졌습니다.
+                </Review_Content>
+                <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
+                <Review_Content>
+                  남의 일에도 발 벗고 열정적으로 도와주려는 모습이 인상
+                  깊었습니다.
+                </Review_Content>
+                <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
+                <Review_Content>
+                  코로나 때문에 같이 있었던 시간이 적어서 또한 본인이 여유가
+                  없어서 상대방의 개선할 부분을 찾지 못했습니다.
+                </Review_Content>
+              </Review_Content_Wrapper>
+            </Box5_Review>
+            <Box5_Review>
+              <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
+              <Review_Content_Wrapper>
+                <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
+                <Review_Content>
+                  일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도
+                  잘되었고 이런저런 얘기도 할 수 있어서 좋았습니다
+                </Review_Content>
+                <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
+                <Review_Content>
+                  오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
+                  도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
+                  코드를 작성하시는 창의력도 잘한 부분인것 같습니다
+                </Review_Content>
+                <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
+                <Review_Content>
+                  하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속
+                  오류 개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면
+                  좋은 결과가 있을것 이라고 생각합니다!!
+                </Review_Content>
+              </Review_Content_Wrapper>
+            </Box5_Review>
+            <Box5_Review>
+              <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
+              <Review_Content_Wrapper>
+                <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
+                <Review_Content>
+                  일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도
+                  잘되었고 이런저런 얘기도 할 수 있어서 좋았습니다
+                </Review_Content>
+                <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
+                <Review_Content>
+                  오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
+                  도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
+                  코드를 작성하시는 창의력도 잘한 부분인것 같습니다
+                </Review_Content>
+                <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
+                <Review_Content>
+                  하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속
+                  오류 개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면
+                  좋은 결과가 있을것 이라고 생각합니다!!
+                </Review_Content>
+              </Review_Content_Wrapper>
+            </Box5_Review>
+            <Box5_Review>
+              <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
+              <Review_Content_Wrapper>
+                <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
+                <Review_Content>
+                  일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도
+                  잘되었고 이런저런 얘기도 할 수 있어서 좋았습니다
+                </Review_Content>
+                <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
+                <Review_Content>
+                  오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
+                  도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
+                  코드를 작성하시는 창의력도 잘한 부분인것 같습니다
+                </Review_Content>
+                <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
+                <Review_Content>
+                  하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속
+                  오류 개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면
+                  좋은 결과가 있을것 이라고 생각합니다!!
+                </Review_Content>
+              </Review_Content_Wrapper>
+            </Box5_Review>
+            <Box5_Review>
+              <Review_Name>윤** 님의 PF-Review 🙋🏻‍♂️</Review_Name>
+              <Review_Content_Wrapper>
+                <Review_Tile>🎙 커뮤니케이션 평가 </Review_Tile>
+                <Review_Content>
+                  일주일중 처음으로 페어프렌즈가 되었지만 커뮤니케이션도
+                  잘되었고 이런저런 얘기도 할 수 있어서 좋았습니다
+                </Review_Content>
+                <Review_Tile>👍🏻 잘했던 부분</Review_Tile>
+                <Review_Content>
+                  오류가 생기면 즉각적으로 해결하려하시고 이런저런 방법으로
+                  도전하시는 모습이 보기 좋았고 제가 생각도 하지 못했던 방법으로
+                  코드를 작성하시는 창의력도 잘한 부분인것 같습니다
+                </Review_Content>
+                <Review_Tile>🤔 개선하면 좋을 부분 </Review_Tile>
+                <Review_Content>
+                  하루본거라 개선할 부분은 잘 모르겠습니다...! 지금처럼 계속
+                  오류 개선을 위한 적극적인 모습과 창의적인 코딩을 보여주신다면
+                  좋은 결과가 있을것 이라고 생각합니다!!
+                </Review_Content>
+              </Review_Content_Wrapper>
+            </Box5_Review>
+          </Bounce_Wrapper>
         </Box5_Review_Wrapper>
       </Box5>
     </Wrapper>

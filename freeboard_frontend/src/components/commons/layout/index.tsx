@@ -19,7 +19,9 @@ export default function Layout(props) {
   console.log(currentUrl);
   return (
     <Wrapper>
-      {currentUrl === "/" ? (
+      {currentUrl === "/" ||
+      currentUrl === "/Joonyoung/Skills" ||
+      currentUrl === "/Joonyoung/About" ? (
         <Navigation2 />
       ) : (
         <>
