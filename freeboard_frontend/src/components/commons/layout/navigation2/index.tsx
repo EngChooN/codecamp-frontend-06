@@ -91,7 +91,8 @@ export default function Navigation2() {
   const menuArray = ["Skills & Info", "About", "Project", "Career & Education"];
 
   const onClickMain = () => {
-    document.location.href = "/";
+    // document.location.href = "/";
+    router.push("/");
   };
 
   const onClickMenu = (e) => {
