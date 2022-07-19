@@ -1,16 +1,17 @@
 import { useState } from "react";
 import Slide from "react-reveal/Slide";
 import Fade from "react-reveal/Fade";
-import { Document, Page, pdfjs } from "react-pdf";
-import Slider from "react-slick";
+// import { Document, Page, pdfjs } from "react-pdf";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import {
+  Carousel_Wrapper,
   Content,
   MenuTitle,
   News,
   NewsWrapper,
+  Review,
   SideBar,
   Sidebar_Title1,
   Sidebar_Title2,
@@ -18,13 +19,15 @@ import {
   Sidebar_Title4,
   Sidebar_Title5,
   SideBar_Wrapper,
+  Slider1,
+  SliderChild,
   Title,
   Wrapper,
-} from "../../../src/components/units/About";
+} from "../../../src/components/units/About.styles";
 
 export default function AboutPage() {
   // workerSrc 정의 하지 않으면 pdf 보여지지 않습니다.
-  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+  // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
   const [aboutOne, setAboutOne] = useState(true);
   const [aboutTwo, setAboutTwo] = useState(false);
@@ -76,8 +79,10 @@ export default function AboutPage() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3500,
   };
 
   return (
@@ -154,6 +159,32 @@ export default function AboutPage() {
                 편의성과 깔끔한 디자인으로 좋은 평가를 받았습니다.
                 <br />
                 <br />
+                {/* 캐러셀 */}
+                <Carousel_Wrapper>
+                  <Slider1 {...settings}>
+                    <SliderChild>
+                      <Review>
+                        🙋🏻‍♂️ 페이지 UI 자체는 귀엽고 보기 쉽게 해주신 것 같습니다.
+                        요즘 사람들의 성향에 맞춰 짤이나 영상같은 것들도 볼 수
+                        있게 구현해 주신 점이 좋았습니다.
+                      </Review>
+                    </SliderChild>
+                    <SliderChild>
+                      <Review>
+                        🙋🏻‍♂️ 깔끔한 UI가 영어권 사이트 보는 것 같았어요. 그리고
+                        이름은 자동으로 골뱅이 앞에 있는 것 따서 만들어주는 것,
+                        바로 촬영해서 올릴 수 있게 한 점, 번역을 넣어놓은 게
+                        좋았습니다.
+                      </Review>
+                    </SliderChild>
+                    <SliderChild>
+                      <Review>
+                        🙋🏻‍♂️ 좋아요와 북마크는 로그인 데이터에 남아있는 부분
+                        구현이 좋았고 채팅방의 기존 대화 내용 저장도 좋았다
+                      </Review>
+                    </SliderChild>
+                  </Slider1>
+                </Carousel_Wrapper>
               </Content>
             </News>
           </Slide>
@@ -185,18 +216,25 @@ export default function AboutPage() {
                 {/* <Document file={"/files/LangB_bad.pdf"}>
                   <Page height={600} pageNumber={1} />
                 </Document> */}
-                <Slider {...settings}>
-                  <div>
-                    <h3>ㅇㄴㅇㄴ</h3>
-                  </div>
-                  <div>
-                    <h3>2</h3>
-                  </div>
-                  <div>
-                    <h3>3</h3>
-                  </div>
-                </Slider>
-                <br />
+                {/* 캐러셀 */}
+                <Carousel_Wrapper>
+                  <Slider1 {...settings}>
+                    <SliderChild>
+                      <Review>
+                        🙅🏻‍♂️ 모바일 화면에서 비율 깨짐, 채팅 기능 사용시 포인트가
+                        필요함. https를 하지않음. 로고를 클릭하면 메인페이지가
+                        아닌 랜딩페이지로 이동함.
+                      </Review>
+                    </SliderChild>
+                    <SliderChild>
+                      <Review>
+                        🙅🏻‍♂️ garden 화면에 무한스크롤 될 때 검색창까지 같이
+                        내려가는 점 등 전체화면이 스크 롤 되는 것도 수정되었으면
+                        좋겠습니다.
+                      </Review>
+                    </SliderChild>
+                  </Slider1>
+                </Carousel_Wrapper>
                 <br />그 외에도, useEffect & useMemo & useCallback 등 기존의
                 배웠던 Hooks에 대해서 부족한 부분을 현재 공부중이며, 매일매일
                 블로그로 기록하고 있습니다. 또한 앞서 말했듯이, 마음이 맞는

@@ -1,11 +1,16 @@
 import styled from "@emotion/styled";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export const Wrapper = styled.div`
   margin-top: -465px;
+  width: 100vw;
   height: 100vh;
   display: flex;
   background: url("/images/rending/rending1.jpg") fixed;
   background-size: cover;
+  display: flex;
 `;
 
 export const SideBar = styled.div`
@@ -97,6 +102,7 @@ export const SideBar_Wrapper = styled.section`
 `;
 
 export const NewsWrapper = styled.section`
+  width: 100%;
   padding-top: 100px;
 `;
 
@@ -108,12 +114,46 @@ export const Title = styled.h1`
 export const Content = styled.p`
   margin-top: 20px;
   padding: 20px;
-  background-color: #e0e0e0;
-  font-size: 20px;
+  background-color: white;
+  border: 2px solid #e0e0e0;
+  font-size: 19px;
   font-weight: 200;
   border-radius: 15px;
 `;
 
 export const News = styled.article`
+  width: 100%;
   padding: 30px;
+`;
+
+export const Carousel_Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const Slider1 = styled(Slider)`
+  width: 750px;
+  height: 80px;
+  display: flex;
+`;
+
+export const SliderChild = styled(Slider)`
+  padding: 20px;
+  width: 700px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  margin-left: 25px;
+  background-color: #e0e0e0;
+`;
+
+export const Review = styled.div`
+  font-size: 15px;
+  font-weight: 350;
 `;

@@ -21,7 +21,8 @@ export default function Layout(props) {
     <Wrapper>
       {currentUrl === "/" ||
       currentUrl === "/Joonyoung/Skills" ||
-      currentUrl === "/Joonyoung/About" ? (
+      currentUrl === "/Joonyoung/About" ||
+      currentUrl === "/Joonyoung/Project" ? (
         <Navigation2 />
       ) : (
         <>

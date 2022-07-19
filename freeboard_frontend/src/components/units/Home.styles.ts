@@ -14,8 +14,8 @@ export const Wrapper = styled.div`
 export const Box1 = styled.section`
   display: flex;
   flex-direction: column;
-  padding-top: 250px;
-  /* justify-content: center; */
+  /* padding-top: 250px; */
+  justify-content: center;
   background: url("/images/rending/rending1.jpg") fixed;
   background-size: cover;
   width: 100%;
@@ -30,7 +30,7 @@ export const HelloLottie = styled.iframe`
 `;
 
 export const Box1_Btns = styled.div`
-  margin-top: 210px;
+  margin-top: 50px;
   display: flex;
   justify-content: space-around;
 `;
@@ -165,7 +165,7 @@ export const StudyLottie = styled.iframe`
 
 export const Box5 = styled.section`
   background-color: #f4f4f4;
-  height: 91vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
