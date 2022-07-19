@@ -22,7 +22,8 @@ export default function Layout(props) {
       {currentUrl === "/" ||
       currentUrl === "/Joonyoung/Skills" ||
       currentUrl === "/Joonyoung/About" ||
-      currentUrl === "/Joonyoung/Project" ? (
+      currentUrl === "/Joonyoung/Project" ||
+      currentUrl === "/Joonyoung/Career&Education" ? (
         <Navigation2 />
       ) : (
         <>
